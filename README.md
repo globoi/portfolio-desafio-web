@@ -24,6 +24,6 @@ O aplicativo deverá funcionar para todos os browsers de mercado, em suas versõ
 
 -------------------------------------------------------------------------------
 ### Mobile
-O aplicativo deverá funcionar a partir da SDK 21 para o Android ou a versão 11 de iOS/Swift 5.
+O aplicativo deverá funcionar a partir da SDK 21 para o Android ou a versão 13 de iOS/Swift 5.
 
 [Desafio Mobile](/mobile/README.md)

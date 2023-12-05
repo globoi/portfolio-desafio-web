@@ -21,7 +21,7 @@ Você deverá usar este repositório como o repo principal do projeto, i.e., tod
 
 O desafio que você irá desenvolver é um aplicativo de feed de notícias. Com ele podemos acompanhar as notícias mais recentes do Brasil e do mundo.
 
-O aplicativo deverá funcionar a partir da SDK 21 para o Android ou a versão 11 de iOS/Swift 5.
+O aplicativo deverá funcionar a partir da SDK 21 para o Android ou a versão 13 de iOS/Swift 5.
 
 -------------------------------------------------------------------------------
 ## Regras de negócio
