@@ -1,8 +1,12 @@
+@import url('./fonts.css');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
 }
+
 
 /*========== VARIAVEIS ===============*/
 
@@ -46,4 +50,19 @@
     .main-container {
         padding: 40px 0;
     }
+}
+
+/* MAIN NEWS */
+
+.main-news-box {
+    display: flex;
+    gap: 20px;
+}
+
+.main-news-box__card {
+    flex: 1;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    padding: 16px;
+    border: 1px solid #e1e1e1;
+    border-radius: 4px;
 }
