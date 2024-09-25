@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*========== VARIAVEIS ===============*/
+
+:root {
+    --primary-color: #C4170C
+  }
+
+/* HEADER */
+
+.main-header {
+    background-color: var(--primary-color);
+    padding: 16px 0px;
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.main-header__logo {
+    margin: 0 auto;
+}
+
+.main-header__logo--figcaption {
+    display: none;
+}
