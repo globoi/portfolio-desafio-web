@@ -48,34 +48,7 @@
                 </div>
             </section>
 
-            <aside class="main-aside">
-                <div class="new-group-box">
-                    <div class="new-group-box__header">
-                        <h2 class="new-group-box__title"> Viu isso aqui?</h2>
-                    </div>
-                    <div class="new-group-box__content">
-                        <ul class="new-group-box__content-list">
-                            <li class="new-group-box__content-item">
-                                <a href="">Brasil chega a 96.113 mortes por Covid e tem 2,8 milhões de
-                                    casos</a>
-                            </li>
-                            <li class="new-group-box__content-item">
-                                <a href="">Brasil chega a 96.113 mortes por Covid e tem 2,8 milhões de
-                                    casos</a>
-                            </li>
-                            <li class="new-group-box__content-item">
-                                <a href="">Brasil chega a 96.113 mortes por Covid e tem 2,8 milhões de
-                                    casos</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="new-group-box__footer">
-                        <a>
-                            Mais
-                            conteúdos recomendados
-                        </a>
-                    </div>
-                </div>
+            <aside class="main-aside" id="new-group-box">
             </aside>
         </section>
 
@@ -92,25 +65,24 @@
     </footer>
 
     <script type="module">
-        import { getNews } from './assets/js/services/api/news.js'
+        import { getNews, getNewsGroup } from './assets/js/services/api/news.js'
         import { formatDateByTime } from "./assets/js/utils/dates-functions.js";
         import { loadTemplate } from "./assets/js/utils/dom-functions.js";
         import { timer } from "./assets/js/utils/helpers.js";
 
         const news = await getNews(1);
-        console.log(news)
-
         // Seleciona o container onde as notícias serão inseridas
         const newsList = document.getElementById('news-list');
-        newsList.innerHTML = await loadTemplate('./assets/templates/news-item-skeleton.html');
+        newsList.innerHTML = await loadTemplate('./assets/templates/news-skeleton.html');
         // Função para criar elementos de uma notícia
         async function createNewsItem(newsItem) {
 
             const newsContent = document.createElement('div');
 
             try {
-                // apaga o skeleton
+                // simula um timer da api
                 await timer(3000)
+                // apaga o skeleton
                 newsList.innerHTML = '';
                 const templateText = await loadTemplate('./assets/templates/news-item.html');
                 newsContent.innerHTML = templateText;
@@ -147,6 +119,56 @@
         }
 
         news.forEach(newsItem => createNewsItem(newsItem));
+
+
+        /* ================================ AQUI*/
+
+        const newsGroups = await getNewsGroup()
+        const newsListGroup = document.getElementById('new-group-box');
+        newsListGroup.innerHTML = await loadTemplate('./assets/templates/news-skeleton.html');
+
+        async function createNewsGroupItem(newsItem) {
+
+            const newsContent = document.createElement('div');
+
+            try {
+
+                // simula um timer da api
+                await timer(3500)
+                // apaga o skeleton
+                newsListGroup.innerHTML = '';
+                if (newsItem.group && newsItem.group.length > 0) {
+
+                    const templateText = await loadTemplate('./assets/templates/news-group.html');
+                    newsContent.innerHTML = templateText;
+
+                    // trata o titulo do card
+                    const titleCard = newsContent.querySelector('.new-group-box__title');
+                    titleCard.textContent = newsItem.header
+
+                    // trata a listagem das noticias
+                    const contentList = newsContent.querySelector('.new-group-box__content-list');
+                    const liElement = newsContent.querySelector('.new-group-box__content-item')
+                    contentList.innerHTML = '';
+
+                    newsItem.group.forEach(news => {
+                        const cloneLi = liElement.cloneNode(true);
+                        const link = cloneLi.querySelector('a');
+                        link.href = news.content.url
+                        link.textContent = news.content.title;
+                        contentList.appendChild(cloneLi)
+                    })
+                }
+
+            } catch (error) {
+                newsContent.textContent = "Erro ao carregar as noticias, por favor tente novamente mais tarde."
+            }
+
+            newsListGroup.appendChild(newsContent);
+        }
+
+        newsGroups.forEach(newsItem => createNewsGroupItem(newsItem));
+
     </script>
 
 </body>
