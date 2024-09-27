@@ -5,5 +5,5 @@ export async function getNews(page = 1) {
     let response = await fetch(`${BASE_URL}${ENDPOITS.FEED}/${ENDPOITS.PAGE}/${page}`);
     let data = await response.json();
 
-    return data;
+    return data.filter(el => el.type === 'materia');
 }
