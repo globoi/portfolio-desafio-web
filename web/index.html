@@ -42,9 +42,10 @@
             </article>
         </main>
         <section class="news-box">
-            <section class="news-list-wrapper" id="news-list">
-                <div>
-                    <button class="btn btn-primary">Veja mais</button>
+            <section class="news-list-wrapper">
+                <div id="news-list"> LISTA DE NOTICIAS</div>
+                <div id="new-load-more">
+                    <button class="btn btn-primary" id="load-more">Veja mais</button>
                 </div>
             </section>
 
@@ -70,26 +71,26 @@
         import { loadTemplate } from "./assets/js/utils/dom-functions.js";
         import { timer } from "./assets/js/utils/helpers.js";
 
-        const news = await getNews(1);
+        let page = 1;
         // Seleciona o container onde as notícias serão inseridas
         const newsList = document.getElementById('news-list');
         newsList.innerHTML = await loadTemplate('./assets/templates/news-skeleton.html');
+
+        const loadMoreButton = document.getElementById('load-more')
+
+        let news = await getNews(page);
+
         // Função para criar elementos de uma notícia
         async function createNewsItem(newsItem) {
 
             const newsContent = document.createElement('div');
-
             try {
-                // simula um timer da api
-                await timer(3000)
-                // apaga o skeleton
-                newsList.innerHTML = '';
                 const templateText = await loadTemplate('./assets/templates/news-item.html');
                 newsContent.innerHTML = templateText;
 
                 // trata a imagem
                 const image = newsContent.querySelector('.new-list-item__image-image')
-                image.src = newsItem.image;
+                image.src = newsItem.image ? newsItem.image : './assets/imgs/G1-placeholder.webp';
                 image.alt = newsItem.title;
 
                 // trata o figcaption
@@ -118,8 +119,34 @@
             newsList.appendChild(newsContent);
         }
 
-        news.forEach(newsItem => createNewsItem(newsItem));
+        loadMoreButton.style.display = 'none';
+        // simula timer API
+        await timer(3000)
 
+        for (const newsItem of news) {
+            await createNewsItem(newsItem)
+        }
+        // remove skeleton ao final do processamento
+        const skeleton = newsList.querySelector('.news-skeleton');
+        skeleton.remove()
+
+        loadMoreButton.style.display = 'block';
+
+        // faz a paginação
+        loadMoreButton.addEventListener('click', async () => {
+            page = page + 1;
+            news = await getNews(page);
+            for (const newsItem of news) {
+                await createNewsItem(newsItem)
+            }
+        })
+    </script>
+
+    <script type="module">
+        import { getNews, getNewsGroup } from './assets/js/services/api/news.js'
+        import { formatDateByTime } from "./assets/js/utils/dates-functions.js";
+        import { loadTemplate } from "./assets/js/utils/dom-functions.js";
+        import { timer } from "./assets/js/utils/helpers.js";
 
         /* ================================ AQUI*/
 
@@ -168,7 +195,6 @@
         }
 
         newsGroups.forEach(newsItem => createNewsGroupItem(newsItem));
-
     </script>
 
 </body>
