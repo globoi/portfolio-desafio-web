@@ -11,6 +11,10 @@ body {
     background-color: #F9F9F9;
 }
 
+a {
+    text-decoration: none;
+}
+
 /* GENERAL & HELPERS */
 .hidden {
     display: none;
@@ -249,15 +253,20 @@ body {
 }
 
 /* MUDAR O NOME DAS CLASSES DEPOIS */
-.new-list-item__image-box {
+.new-list-item__img-container {
     max-width: 270px;
+    position: relative;
 
     @media (max-width: 767px) {
         max-width: 100%;
     }
 }
 
-.new-list-item__image-image {
+.new-list-item__img-container>div {
+    position: relative;
+}
+
+.new-list-item__img-tag {
     max-width: 270px;
     border-radius: 12px;
 
@@ -265,6 +274,33 @@ body {
         max-width: 100%;
         border-radius: 0px;
     }
+}
+
+.new-list-item__img-tag--video {
+    filter: brightness(0.70);
+}
+
+.new-list-item__play {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.new-list-item__play img {
+    height: 48px;
+    width: 48px;
+    background-color: white;
+    border-radius: 50%;
+}
+
+.new-list-item__play-time {
+    font-weight: 600;
+    line-height: 22px;
+    letter-spacing: -0.5px;
+    color: white;
 }
 
 .new-list-item__info-box {
@@ -469,7 +505,7 @@ footer {
 /* The Modal (background) */
 .modal {
     /* Hidden by default */
-    display: block;
+    display: none;
     position: fixed;
     z-index: 1600;
     left: 0;

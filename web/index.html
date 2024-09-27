@@ -80,7 +80,6 @@
                 Your browser does not support the video tag.
             </video>
         </div>
-        <!-- <img class="modal-content" id="img01" src="https://picsum.photos/800/800"> -->
     </div>
 
     <script type="module">
@@ -109,7 +108,7 @@
                 newsContent.innerHTML = templateText;
 
                 // trata a imagem
-                const image = newsContent.querySelector('.new-list-item__image-image')
+                const image = newsContent.querySelector('.new-list-item__img-tag')
                 image.src = newsItem.image ? newsItem.image : './assets/imgs/G1-placeholder.webp';
                 image.alt = newsItem.title;
 
@@ -132,6 +131,20 @@
                     when.textContent = formatDateByTime(newsItem.created);
                 })
 
+                const player = newsContent.querySelector('.new-list-item__play');
+
+                // trata os links
+                if (!newsItem.video) {
+                    const links = newsContent.querySelectorAll('a')
+                    player.style.display = 'none';
+                    links.forEach(linkElement => {
+                        linkElement.href = newsItem.url;
+                    })
+                } else {
+                    image.classList.add('new-list-item__img-tag--video')
+                    player.style.display = 'flex';
+                }
+
             } catch (error) {
                 newsContent.textContent = "Erro ao carregar as noticias, por favor tente novamente mais tarde."
             }
@@ -148,7 +161,8 @@
 
         loadMoreButton.style.display = 'none';
         // simula timer API
-        await timer(3000)
+        // await timer(3000)
+        // HABILITAR DEPOIS
 
         for (const newsItem of news) {
             await createNewsItem(newsItem)
@@ -170,8 +184,7 @@
     </script>
 
     <script type="module">
-        import { getNews, getNewsGroup } from './assets/js/services/api/news.js'
-        import { formatDateByTime } from "./assets/js/utils/dates-functions.js";
+        import { getNewsGroup } from './assets/js/services/api/news.js'
         import { loadTemplate } from "./assets/js/utils/dom-functions.js";
         import { timer } from "./assets/js/utils/helpers.js";
 
