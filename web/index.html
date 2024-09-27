@@ -84,6 +84,8 @@
         async function createNewsItem(newsItem) {
 
             const newsContent = document.createElement('div');
+            const isAd = newsList.childElementCount % 8;
+
             try {
                 const templateText = await loadTemplate('./assets/templates/news-item.html');
                 newsContent.innerHTML = templateText;
@@ -117,6 +119,13 @@
             }
 
             newsList.appendChild(newsContent);
+
+            if (isAd == 0) {
+                const loadAd = await loadTemplate('./assets/templates/ad.html');
+                const adContent = document.createElement('div');
+                adContent.innerHTML = loadAd;
+                newsList.appendChild(adContent);
+            }
         }
 
         loadMoreButton.style.display = 'none';
