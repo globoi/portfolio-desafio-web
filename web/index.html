@@ -93,6 +93,7 @@
     <script type="module">
         import { getNews } from './assets/js/services/api/news.js'
         import { formatDateByTime } from "./assets/js/utils/dates-functions.js";
+        import { loadTemplate } from "./assets/js/utils/dom-functions.js";
 
         const news = await getNews(1);
         console.log(news)
@@ -101,62 +102,36 @@
         const newsList = document.getElementById('news-list');
 
         // Função para criar elementos de uma notícia
-        function createNewsItem(newsItem) {
-            // Cria o container principal para a notícia
-            const newsContent = document.createElement('article');
-            newsContent.classList.add('news-list-item');
+        async function createNewsItem(newsItem) {
 
-            // Cria a imagem
-            const imageBox = document.createElement('section')
-            imageBox.classList.add('new-list-item__image-box')
+            const templateText = await loadTemplate('./assets/templates/news-item.html');
 
-            const img = document.createElement('img');
-            img.src = newsItem.image;
-            img.alt = newsItem.title;
-            img.classList.add('new-list-item__image-image')
-            imageBox.appendChild(img);
+            const newsContent = document.createElement('div');
+            newsContent.innerHTML = templateText;
 
-            const figcaptionImage = document.createElement('figcaption');
-            figcaptionImage.classList.add('hidden');
+            // trata a imagem
+            const image = newsContent.querySelector('.new-list-item__image-image')
+            image.src = newsItem.image;
+            image.alt = newsItem.title;
+
+            // trata o figcaption
+            const figcaptionImage = newsContent.querySelector('figcaption')
             figcaptionImage.textContent = newsItem.title;
-            imageBox.appendChild(figcaptionImage);
 
-            newsContent.appendChild(imageBox);
-
-            // cria as informações
-            const infoBox = document.createElement('section');
-            infoBox.classList.add('new-list-item__info-box')
-
-            const label = document.createElement('h3');
+            // trata as informações da noticia
+            const label = newsContent.querySelector('.new-list-item__label')
             label.textContent = newsItem.section;
-            label.classList.add('new-list-item__label')
 
-            const title = document.createElement('h2');
+            const title = newsContent.querySelector('.new-list-item__title')
             title.textContent = newsItem.title;
-            title.classList.add('new-list-item__title')
 
-            const description = document.createElement('p');
+            const description = newsContent.querySelector('.new-list-item__description')
             description.textContent = newsItem.summary;
-            description.classList.add('new-list-item__description')
 
-            const createdAt = document.createElement('small');
-            createdAt.textContent = formatDateByTime(newsItem.created);
-            createdAt.classList.add('new-list-item__when', 'new-list-item__when--desktop')
-
-            infoBox.appendChild(label)
-            infoBox.appendChild(title)
-            infoBox.appendChild(description)
-            infoBox.appendChild(createdAt)
-
-            newsContent.appendChild(infoBox);
-
-            const mobileCreatedAt = document.createElement('section');
-            const cloneCreateAt = createdAt.cloneNode(true);
-            cloneCreateAt.classList.remove('new-list-item__when--desktop');
-            cloneCreateAt.classList.add('new-list-item__when--mobile');
-            mobileCreatedAt.appendChild(cloneCreateAt);
-
-            newsContent.appendChild(mobileCreatedAt);
+            const createAt = newsContent.querySelectorAll('.new-list-item__when')
+            createAt.forEach(when => {
+                when.textContent = formatDateByTime(newsItem.created);
+            })
 
             newsList.appendChild(newsContent);
         }
