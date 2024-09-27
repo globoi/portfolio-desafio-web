@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="icon"
+        href="https://s2-g1.glbimg.com/t2_E-_cSErv4fsbUVhwwEN0YMX0=/32x32/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2021/H/w/YbA657S3aYVfC0P9wboQ/g1-favicon.png">
     <title>g1 - O portal de notícias da Globo</title>
 </head>
 
@@ -64,6 +66,22 @@
             </div>
         </div>
     </footer>
+
+    <div id="myModal" class="modal">
+        <span class="close">
+            <img src="./assets/imgs/close-icon.svg" alt="fechar vídeo">
+        </span>
+
+        <div class="modal-content">
+            <div id="caption">Jornal Hoje</div>
+            <video controls width="100%">
+                <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+                    type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <!-- <img class="modal-content" id="img01" src="https://picsum.photos/800/800"> -->
+    </div>
 
     <script type="module">
         import { getNews, getNewsGroup } from './assets/js/services/api/news.js'
