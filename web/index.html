@@ -41,118 +41,10 @@
             </article>
         </main>
         <section class="news-box">
-            <section class="news-list-wrapper">
-                <article class="news-list-item">
-                    <section class="new-list-item__image-box">
-                        <img src="./assets/imgs/news-example.png"
-                            alt="Fotos mostram tamanho da destruição e desespero das vítimas"
-                            title="Fotos mostram tamanho da destruição e desespero das vítimas"
-                            class="new-list-item__image-image">
-                        <figcaption class="hidden">Fotos mostram tamanho da destruição e
-                            desespero
-                            das
-                            vítimas</figcaption>
-                    </section>
-                    <section class="new-list-item__info-box">
-                        <h3 class="new-list-item__label">Avanço da pandemia</h3>
-                        <h2 class="new-list-item__title">Brasil chega a 96.113 mortes por Covid e tem 2,8 milhões de
-                            casos
-                        </h2>
-                        <p class="new-list-item__description">
-                            Butantan dobrou capacidade e realiza agora 400 testagens por dia em shopping.
-                        </p>
-                        <small class="new-list-item__when new-list-item__when--desktop"> Há 3 horas — Em
-                            Coronavírus</small>
-                    </section>
-                    <section>
-                        <small class="new-list-item__when new-list-item__when--mobile"> Há 3 horas — Em
-                            Coronavírus</small>
-                    </section>
-                </article>
-                <article class="news-list-item">
-                    <section class="new-list-item__image-box">
-                        <img src="./assets/imgs/news-example.png"
-                            alt="Fotos mostram tamanho da destruição e desespero das vítimas"
-                            title="Fotos mostram tamanho da destruição e desespero das vítimas"
-                            class="new-list-item__image-image">
-                        <figcaption class="hidden">Fotos mostram tamanho da destruição e
-                            desespero
-                            das
-                            vítimas</figcaption>
-                    </section>
-                    <section class="new-list-item__info-box">
-                        <h3 class="new-list-item__label">Avanço da pandemia</h3>
-                        <h2 class="new-list-item__title">Brasil chega a 96.113 mortes por Covid e tem 2,8 milhões de
-                            casos
-                        </h2>
-                        <p class="new-list-item__description">
-                            Butantan dobrou capacidade e realiza agora 400 testagens por dia em shopping.
-                        </p>
-                        <small class="new-list-item__when new-list-item__when--desktop"> Há 3 horas — Em
-                            Coronavírus</small>
-                    </section>
-                    <section>
-                        <small class="new-list-item__when new-list-item__when--mobile"> Há 3 horas — Em
-                            Coronavírus</small>
-                    </section>
-                </article>
-                <article class="news-list-item">
-                    <section class="new-list-item__image-box">
-                        <img src="./assets/imgs/news-example.png"
-                            alt="Fotos mostram tamanho da destruição e desespero das vítimas"
-                            title="Fotos mostram tamanho da destruição e desespero das vítimas"
-                            class="new-list-item__image-image">
-                        <figcaption class="hidden">Fotos mostram tamanho da destruição e
-                            desespero
-                            das
-                            vítimas</figcaption>
-                    </section>
-                    <section class="new-list-item__info-box">
-                        <h3 class="new-list-item__label">Avanço da pandemia</h3>
-                        <h2 class="new-list-item__title">Brasil chega a 96.113 mortes por Covid e tem 2,8 milhões de
-                            casos
-                        </h2>
-                        <p class="new-list-item__description">
-                            Butantan dobrou capacidade e realiza agora 400 testagens por dia em shopping.
-                        </p>
-                        <small class="new-list-item__when new-list-item__when--desktop"> Há 3 horas — Em
-                            Coronavírus</small>
-                    </section>
-                    <section>
-                        <small class="new-list-item__when new-list-item__when--mobile"> Há 3 horas — Em
-                            Coronavírus</small>
-                    </section>
-                </article>
-
-                <article class="news-list-item">
-                    <section class="new-list-item__image-box">
-                        <img src="./assets/imgs/news-example.png"
-                            alt="Fotos mostram tamanho da destruição e desespero das vítimas"
-                            title="Fotos mostram tamanho da destruição e desespero das vítimas"
-                            class="new-list-item__image-image">
-                        <figcaption class="hidden">Fotos mostram tamanho da destruição e
-                            desespero
-                            das
-                            vítimas</figcaption>
-                    </section>
-                    <section class="new-list-item__info-box">
-                        <h3 class="new-list-item__label">Avanço da pandemia</h3>
-                        <h2 class="new-list-item__title">Brasil chega a 96.113 mortes por Covid e tem 2,8 milhões de
-                            casos
-                        </h2>
-                        <p class="new-list-item__description">
-                            Butantan dobrou capacidade e realiza agora 400 testagens por dia em shopping.
-                        </p>
-                        <small class="new-list-item__when new-list-item__when--desktop"> Há 3 horas — Em
-                            Coronavírus</small>
-                    </section>
-                    <section>
-                        <small class="new-list-item__when new-list-item__when--mobile"> Há 3 horas — Em
-                            Coronavírus</small>
-                    </section>
-                </article>
-
-                <button class="btn btn-primary">Veja mais</button>
+            <section class="news-list-wrapper" id="news-list">
+                <div>
+                    <button class="btn btn-primary">Veja mais</button>
+                </div>
             </section>
 
             <aside class="main-aside">
@@ -197,6 +89,81 @@
             </div>
         </div>
     </footer>
+
+    <script type="module">
+        import { getNews } from './assets/js/services/api/news.js'
+        import { formatDateByTime } from "./assets/js/utils/dates-functions.js";
+
+        const news = await getNews(1);
+        console.log(news)
+
+        // Seleciona o container onde as notícias serão inseridas
+        const newsList = document.getElementById('news-list');
+
+        // Função para criar elementos de uma notícia
+        function createNewsItem(newsItem) {
+            // Cria o container principal para a notícia
+            const newsContent = document.createElement('article');
+            newsContent.classList.add('news-list-item');
+
+            // Cria a imagem
+            const imageBox = document.createElement('section')
+            imageBox.classList.add('new-list-item__image-box')
+
+            const img = document.createElement('img');
+            img.src = newsItem.image;
+            img.alt = newsItem.title;
+            img.classList.add('new-list-item__image-image')
+            imageBox.appendChild(img);
+
+            const figcaptionImage = document.createElement('figcaption');
+            figcaptionImage.classList.add('hidden');
+            figcaptionImage.textContent = newsItem.title;
+            imageBox.appendChild(figcaptionImage);
+
+            newsContent.appendChild(imageBox);
+
+            // cria as informações
+            const infoBox = document.createElement('section');
+            infoBox.classList.add('new-list-item__info-box')
+
+            const label = document.createElement('h3');
+            label.textContent = newsItem.section;
+            label.classList.add('new-list-item__label')
+
+            const title = document.createElement('h2');
+            title.textContent = newsItem.title;
+            title.classList.add('new-list-item__title')
+
+            const description = document.createElement('p');
+            description.textContent = newsItem.summary;
+            description.classList.add('new-list-item__description')
+
+            const createdAt = document.createElement('small');
+            createdAt.textContent = formatDateByTime(newsItem.created);
+            createdAt.classList.add('new-list-item__when', 'new-list-item__when--desktop')
+
+            infoBox.appendChild(label)
+            infoBox.appendChild(title)
+            infoBox.appendChild(description)
+            infoBox.appendChild(createdAt)
+
+            newsContent.appendChild(infoBox);
+
+            const mobileCreatedAt = document.createElement('section');
+            const cloneCreateAt = createdAt.cloneNode(true);
+            cloneCreateAt.classList.remove('new-list-item__when--desktop');
+            cloneCreateAt.classList.add('new-list-item__when--mobile');
+            mobileCreatedAt.appendChild(cloneCreateAt);
+
+            newsContent.appendChild(mobileCreatedAt);
+
+            newsList.appendChild(newsContent);
+        }
+
+        news.forEach(newsItem => createNewsItem(newsItem));
+    </script>
+
 </body>
 
 </html>
