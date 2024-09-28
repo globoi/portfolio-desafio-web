@@ -27,3 +27,12 @@ export function formatDateByTime(dataISO) {
         return `Em ${data.toLocaleDateString('pt-BR', optionsMonthYear)}`;
     }
 }
+
+export function formatTimeByMs(milliseconds) {
+    const minutes = Math.floor(milliseconds / 60000);
+    const hours = Math.floor(minutes / 60);
+
+    if (hours > 0) return `${hours} hora${hours > 1 ? 's' : ''}`;
+    else return `${minutes} minuto${minutes > 1 ? 's' : ''}`;
+
+}

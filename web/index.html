@@ -68,8 +68,15 @@
     </footer>
 
     <script type="module">
+        import { getMainNews } from './assets/js/services/api/news.js'
+
+        const mainNews = await getMainNews();
+        console.log(mainNews)
+    </script>
+
+    <script type="module">
         import { getNews, getNewsGroup } from './assets/js/services/api/news.js'
-        import { formatDateByTime } from "./assets/js/utils/dates-functions.js";
+        import { formatDateByTime, formatTimeByMs } from "./assets/js/utils/dates-functions.js";
         import { loadTemplate } from "./assets/js/utils/dom-functions.js";
         import { timer } from "./assets/js/utils/helpers.js";
 
@@ -128,6 +135,9 @@
                 } else {
                     image.classList.add('new-list-item__img-tag--video')
                     player.style.display = 'flex';
+
+                    const playerTime = newsContent.querySelector('.new-list-item__play-time');
+                    playerTime.textContent = formatTimeByMs(newsItem.video.duration);
 
                     const links = newsContent.querySelectorAll('a')
                     links.forEach(linkElement => {
