@@ -67,21 +67,6 @@
         </div>
     </footer>
 
-    <div id="myModal" class="modal">
-        <span class="close">
-            <img src="./assets/imgs/close-icon.svg" alt="fechar vídeo">
-        </span>
-
-        <div class="modal-content">
-            <div id="caption">Jornal Hoje</div>
-            <video controls width="100%">
-                <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-                    type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
-    </div>
-
     <script type="module">
         import { getNews, getNewsGroup } from './assets/js/services/api/news.js'
         import { formatDateByTime } from "./assets/js/utils/dates-functions.js";
@@ -143,9 +128,16 @@
                 } else {
                     image.classList.add('new-list-item__img-tag--video')
                     player.style.display = 'flex';
+
+                    const links = newsContent.querySelectorAll('a')
+                    links.forEach(linkElement => {
+                        linkElement.setAttribute('video-source', newsItem.video.source)
+                        linkElement.setAttribute('program-title', newsItem.video.programTitle)
+                    });
                 }
 
             } catch (error) {
+                console.log(error)
                 newsContent.textContent = "Erro ao carregar as noticias, por favor tente novamente mais tarde."
             }
 
@@ -180,7 +172,48 @@
             for (const newsItem of news) {
                 await createNewsItem(newsItem)
             }
+
+            document.querySelectorAll(".new-list-item__link").forEach(elem => elem.addEventListener("click", linkOpen))
         })
+
+        document.querySelectorAll(".new-list-item__link").forEach(elem => elem.addEventListener("click", linkOpen))
+
+        async function linkOpen(event) {
+            if (this.hasAttribute('video-source')) {
+                event.preventDefault();
+                /* ABRE O MODAL */
+                // AQUI SEPARAR AS FUNCÇÔES 
+                // carrega o conteudo do template
+                const newsContentModal = document.createElement('div');
+                const templateTextModal = await loadTemplate('./assets/templates/news-video-modal.html');
+                newsContentModal.innerHTML = templateTextModal;
+
+                // coloca diretamente no body
+                document.body.insertBefore(newsContentModal, document.body.lastChild);
+
+                // prepara o vídeo
+                const modal = newsContentModal.querySelector('#myModal');
+                const video = newsContentModal.querySelector('source');
+                video.src = this.getAttribute('video-source');
+
+                const caption = newsContentModal.querySelector('#caption');
+                caption.textContent = this.getAttribute('program-title');
+
+                // mostra o modal
+                modal.style.display = 'block';
+
+                const closeModalButton = newsContentModal.querySelector('.close');
+                closeModalButton.addEventListener('click', () => {
+                    // fecha e remove o modal
+                    modal.style.display = 'none';
+                    newsContentModal.remove()
+                })
+            }
+        };
+
+
+
+
     </script>
 
     <script type="module">
