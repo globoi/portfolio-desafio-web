@@ -1,16 +1,19 @@
 
 import { BASE_URL, ENDPOITS } from '../../utils/services/api-urls.js'
 
-export async function getNews(page = 1) {
+export async function getNews(page = 1, type = 'materia') {
     let response = await fetch(`${BASE_URL}${ENDPOITS.FEED}/${ENDPOITS.PAGE}/${page}`);
     let data = await response.json();
 
-    return data.filter(el => el.type === 'materia');
+    return data.filter(el => el.type === type);
 }
 
 export async function getNewsGroup() {
-    let response = await fetch(`${BASE_URL}${ENDPOITS.FEED}/${ENDPOITS.PAGE}/1`);
-    let data = await response.json();
+    let data = await getNews(1, 'agrupador-materia');
+    return data;
+}
 
-    return data.filter(el => el.type === 'agrupador-materia');
+export async function getMainNews() {
+    let data = await getNews(1, 'materia');
+    return data.slice(0, 2);
 }

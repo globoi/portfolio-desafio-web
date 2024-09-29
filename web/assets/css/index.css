@@ -447,6 +447,11 @@ a {
 
 
 /* BUTTON */
+
+#new-load-more {
+    margin-top: 40px;
+}
+
 .btn {
     padding: 16px 0;
     width: 100%;
