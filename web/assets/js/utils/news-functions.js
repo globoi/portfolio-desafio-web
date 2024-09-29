@@ -111,7 +111,6 @@ export async function prepareNewsElement(newsContent, newsItem) {
             playerTime.textContent = formatTimeByMs(newsItem.video.duration);
         }
     } catch (error) {
-        console.log(error)
         newsContent.textContent = "Erro ao carregar as noticias, por favor tente novamente mais tarde.";
     }
 
