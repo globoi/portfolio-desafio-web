@@ -1,0 +1,98 @@
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1600;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 90%;
+    max-width: 1024px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+        width: 60%;
+    }
+
+    @media (max-width: 600px) {
+        width: 90%;
+    }
+}
+
+#caption {
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 38px;
+    text-align: center;
+    color: white;
+    padding: 8px;
+
+    @media (max-width: 767px) {
+        top: 24px;
+        right: 24px;
+    }
+}
+
+.modal-content,
+#caption {
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.5s;
+    animation-name: zoom;
+    animation-duration: 0.5s;
+}
+
+@-webkit-keyframes zoom {
+    from {
+        opacity: 0;
+        -webkit-transform: scale(0)
+    }
+
+    to {
+        opacity: 1;
+        -webkit-transform: scale(1)
+    }
+}
+
+@keyframes zoom {
+    from {
+        opacity: 0;
+        transform: scale(0)
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1)
+    }
+}
+
+.close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    color: #8A8180;
+    font-weight: bold;
+    transition: 0.3s;
+
+    @media (max-width: 767px) {
+        top: 24px;
+        right: 24px;
+    }
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
