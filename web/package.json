@@ -1,0 +1,14 @@
+{
+  "name": "portifolio",
+  "version": "1.0.0",
+  "description": "G1 - Teste de portifólio",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server -p 8080"
+  },
+  "author": "Felipe Biel",
+  "license": "ISC",
+  "dependencies": {
+    "http-server": "^14.1.1"
+  }
+}
