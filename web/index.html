@@ -19,29 +19,7 @@
         <h1 class="main-header__logo--figcaption">g1 - O portal de notícias da Globo</h1>
     </header>
     <div class="main-container main-container-flex">
-        <main class="main-news-box">
-
-            <article class="main-news-box__card">
-                <h3 class="main-news-box__label">Cenário de destruição</h3>
-                <h2 class="main-news-box__title">Equipes buscam desaparecidos da explosão que matou mais de 100 e feriu
-                    4 mil no Líbano </h2>
-                <p class="main-news-box__description">
-                    Suspeita é de que a explosão aconteceu em um depósito de nitrato de amônio, um tipo de fertilizante,
-                    na zona portuária de Beirute.
-                </p>
-            </article>
-            <article class="main-news-box__card main-news-box__card--full-image"
-                style="background-image: url('./assets/imgs/news-example.png');">
-                <img src="./assets/imgs/news-example.png"
-                    alt="Fotos mostram tamanho da destruição e desespero das vítimas"
-                    title="Fotos mostram tamanho da destruição e desespero das vítimas" class="hidden">
-                <figcaption class="hidden">Fotos mostram tamanho da destruição e desespero das
-                    vítimas</figcaption>
-
-                <h2 class="main-news-box__title main-news-box__title--full-image">Fotos mostram tamanho da destruição e
-                    desespero das vítimas
-                </h2>
-            </article>
+        <main class="main-news-box" id="main-news-box">
         </main>
         <section class="news-box">
             <section class="news-list-wrapper">
@@ -68,10 +46,125 @@
     </footer>
 
     <script type="module">
+        import { loadTemplate } from "./assets/js/utils/dom-functions.js";
         import { getMainNews } from './assets/js/services/api/news.js'
+        import { timer } from "./assets/js/utils/helpers.js";
 
         const mainNews = await getMainNews();
-        console.log(mainNews)
+
+
+        const mainList = document.getElementById('main-news-box');
+
+        mainList.innerHTML = await loadTemplate('./assets/templates/main-news-skeleton.html');
+
+        // Função para criar elementos de uma notícia
+        async function createNewsItem(newsItem) {
+
+            const newsContent = document.createElement('div');
+
+            try {
+                const templateText = await loadTemplate('./assets/templates/main-news.html');
+                newsContent.innerHTML = templateText;
+
+                const secondItem = mainList.childElementCount;
+
+                if (secondItem == 2) {
+                    const card = newsContent.querySelector('.main-news-box__card')
+                    card.classList.add('main-news-box__card--full-image')
+                    card.style.backgroundImage = `url(${newsItem.image})`;
+
+                }
+
+                // trata a imagem
+                const image = newsContent.querySelector('.main-news-box__img-tag')
+                image.src = newsItem.image;
+                image.alt = newsItem.title;
+
+                // trata o figcaption
+                const figcaptionImage = newsContent.querySelector('figcaption')
+                figcaptionImage.textContent = newsItem.title;
+
+                // trata as informações da noticia
+                const label = newsContent.querySelector('.main-news-box__label')
+                label.textContent = newsItem.section;
+
+                const title = newsContent.querySelector('.main-news-box__title')
+                title.textContent = newsItem.title;
+
+                const description = newsContent.querySelector('.main-news-box__description')
+                description.textContent = newsItem.summary;
+
+
+                // trata os links
+                if (!newsItem.video) {
+                    const links = newsContent.querySelectorAll('a')
+                    links.forEach(linkElement => {
+                        linkElement.href = newsItem.url;
+                        linkElement.addEventListener("click", linkOpen)
+                    })
+                } else {
+
+                    const links = newsContent.querySelectorAll('a')
+                    links.forEach(linkElement => {
+                        linkElement.setAttribute('video-source', newsItem.video.source)
+                        linkElement.setAttribute('program-title', newsItem.video.programTitle)
+                        linkElement.addEventListener("click", linkOpen)
+                    });
+                }
+
+            } catch (error) {
+                console.log(error)
+                newsContent.textContent = "Erro ao carregar as noticias, por favor tente novamente mais tarde."
+            }
+
+            mainList.appendChild(newsContent);
+        }
+
+        // simula timer API
+        await timer(3000)
+        // HABILITAR DEPOIS
+
+        for (const newsItem of mainNews) {
+            await createNewsItem(newsItem)
+        }
+        // remove skeleton ao final do processamento
+        const mainSkeleton = mainList.querySelector('.main-news-skeleton');
+        mainSkeleton.remove()
+
+        async function linkOpen(event) {
+            if (this.hasAttribute('video-source')) {
+                event.preventDefault();
+                /* ABRE O MODAL */
+                // AQUI SEPARAR AS FUNCÇÔES 
+                // carrega o conteudo do template
+                const newsContentModal = document.createElement('div');
+                const templateTextModal = await loadTemplate('./assets/templates/news-video-modal.html');
+                newsContentModal.innerHTML = templateTextModal;
+
+                // coloca diretamente no body
+                document.body.insertBefore(newsContentModal, document.body.lastChild);
+
+                // prepara o vídeo
+                const modal = newsContentModal.querySelector('#myModal');
+                const video = newsContentModal.querySelector('source');
+                video.src = this.getAttribute('video-source');
+
+                const caption = newsContentModal.querySelector('#caption');
+                caption.textContent = this.getAttribute('program-title');
+
+                // mostra o modal
+                modal.style.display = 'block';
+
+                const closeModalButton = newsContentModal.querySelector('.close');
+                closeModalButton.addEventListener('click', () => {
+                    // fecha e remove o modal
+                    modal.style.display = 'none';
+                    newsContentModal.remove()
+                })
+            }
+        };
+
+
     </script>
 
     <script type="module">
@@ -131,6 +224,7 @@
                     player.style.display = 'none';
                     links.forEach(linkElement => {
                         linkElement.href = newsItem.url;
+                        linkElement.addEventListener("click", linkOpen)
                     })
                 } else {
                     image.classList.add('new-list-item__img-tag--video')
@@ -143,6 +237,7 @@
                     links.forEach(linkElement => {
                         linkElement.setAttribute('video-source', newsItem.video.source)
                         linkElement.setAttribute('program-title', newsItem.video.programTitle)
+                        linkElement.addEventListener("click", linkOpen)
                     });
                 }
 
@@ -183,10 +278,10 @@
                 await createNewsItem(newsItem)
             }
 
-            document.querySelectorAll(".new-list-item__link").forEach(elem => elem.addEventListener("click", linkOpen))
+            // document.querySelectorAll(".new-list-item__link").forEach(elem => elem.addEventListener("click", linkOpen))
         })
 
-        document.querySelectorAll(".new-list-item__link").forEach(elem => elem.addEventListener("click", linkOpen))
+        // document.querySelectorAll(".new-list-item__link").forEach(elem => elem.addEventListener("click", linkOpen))
 
         async function linkOpen(event) {
             if (this.hasAttribute('video-source')) {

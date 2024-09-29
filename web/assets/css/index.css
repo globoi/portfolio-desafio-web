@@ -96,7 +96,7 @@ a {
     box-shadow: 0px 4px 4px 0px #00000040;
     padding: 20px;
     border: 1px solid #e1e1e1;
-    border-radius: 4px;
+    border-radius: 12px;
     background-color: white;
 
     min-height: 426px;
@@ -105,6 +105,7 @@ a {
         min-height: auto;
         flex: auto;
         gap: 8px;
+        border-radius: 0px;
     }
 }
 
@@ -148,24 +149,52 @@ a {
 }
 
 
+
 /* MAIN NEWS ONLY IMAGE */
 .main-news-box__card--full-image {
+    position: relative;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
-    border: none;
-    box-shadow: none;
-    border-radius: 0;
     align-content: end;
     justify-content: stretch;
-}
+    color: white;
+    border: none;
 
-.main-news-box__title--full-image {
-    color: #FFFFFF;
-    text-shadow: 1px 1px 2px #000000CC;
-    align-content: flex-end;
-}
+    .main-news-box__label {
+        color: #FFFFFF;
+        z-index: 2;
+    }
 
+    .main-news-box__title {
+        color: #FFFFFF;
+        align-content: flex-end;
+        z-index: 2;
+    }
+
+    .main-news-box__description {
+        color: #FFFFFF;
+        z-index: 2;
+    }
+
+    &:after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: linear-gradient(0deg, rgba(0, 0, 0, .6), rgba(0, 0, 0, .2) 40%, rgba(0, 0, 0, .2) 80%, rgba(0, 0, 0, .4));
+        content: "";
+        border-radius: 12px;
+    }
+
+    @media (max-width: 767px) {
+        &:after {
+            border-radius: 0px;
+        }
+    }
+
+}
 
 /* NEWS LIST */
 
@@ -377,6 +406,29 @@ a {
     background-color: #e0e0e0;
     border-radius: 8px;
     animation: pulse-skeleton 1.5s infinite ease-in-out;
+}
+
+.main-news-skeleton {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+
+    @media (max-width: 767px) {
+        min-height: auto;
+        flex-wrap: wrap;
+    }
+}
+
+.main-news-skeleton__item {
+    flex: 1;
+    background-color: #e0e0e0;
+    border-radius: 12px;
+    animation: pulse-skeleton 1.5s infinite ease-in-out;
+    min-height: 426px;
+
+    @media (max-width: 767px) {
+        min-height: auto;
+    }
 }
 
 @keyframes pulse-skeleton {
