@@ -89,6 +89,10 @@
     .new-list-item__when {
         display: none;
 
+        &.new-list-item__when--desktop {
+            display: none;
+        }
+
         @media (max-width: 767px) {
             display: block;
 
