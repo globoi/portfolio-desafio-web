@@ -1,0 +1,87 @@
+@import url('./fonts.css');
+@import url('./variables.css');
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+body {
+    background-color: var(--bg-color);
+}
+
+/* GENERAL & HELPERS */
+.hidden {
+    display: none;
+}
+
+/* HEADER */
+.main-header {
+    background-color: var(--primary-color);
+    padding: 16px 0px;
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.main-header__logo {
+    margin: 0 auto;
+}
+
+.main-header__logo--figcaption {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .main-header {
+        padding: 0px;
+    }
+}
+
+/* CONTAINER */
+
+.main-container {
+    max-width: 80rem;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.main-container-flex {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 40px;
+
+    @media (max-width: 767px) {
+        padding: 40px 0;
+    }
+}
+
+/* NEWS GROUP ASIDE*/
+.main-aside {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+/* FOOTER */
+
+footer {
+    background-color: var(--primary-color);
+    padding: 40px;
+}
+
+.footer-box {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    color: white;
+}

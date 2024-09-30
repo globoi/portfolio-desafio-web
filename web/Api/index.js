@@ -9,7 +9,7 @@ app.use(cors())
 app.get('/feed/page/:page', async (req, res) => {
 	const page = req.params.page;
 	try {
-		const raw = fs.readFileSync(`./dump/cleared/page_${page}.json`);
+		const raw = fs.readFileSync(`./Dump/Cleared/page_${page}.json`);
 		const parsed = JSON.parse(raw);
 		res.send(parsed);
 	} catch (e) {
