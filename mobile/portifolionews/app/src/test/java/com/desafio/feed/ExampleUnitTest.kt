@@ -1,4 +1,4 @@
-package com.desafio.portifolionews
+package com.desafio.feed
 
 import org.junit.Test
 

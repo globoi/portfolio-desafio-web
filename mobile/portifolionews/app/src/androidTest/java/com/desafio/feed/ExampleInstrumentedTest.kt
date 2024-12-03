@@ -1,4 +1,4 @@
-package com.desafio.portifolionews
+package com.desafio.feed
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

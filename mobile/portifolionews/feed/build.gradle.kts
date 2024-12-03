@@ -11,6 +11,11 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    compileOptions {
+        sourceCompatibility(21)
+        targetCompatibility(21)
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
