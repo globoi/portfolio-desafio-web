@@ -11,9 +11,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.desafio.feed.data.repository.FeedRepository
+import com.desafio.feed.data.repository.FeedRepositoryImpl
 import com.desafio.portifolionews.ui.theme.PortifolioNewsTheme
 
 class MainActivity : ComponentActivity() {
+
+    val viewMode by lazy {
+        MainViewModel()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -27,8 +34,15 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+
+        viewMode.feedLV.observe(this@MainActivity){
+            it
+        }
     }
 }
+
+
+
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {

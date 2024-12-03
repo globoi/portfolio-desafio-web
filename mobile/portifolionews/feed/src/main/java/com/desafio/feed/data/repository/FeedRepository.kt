@@ -1,14 +1,15 @@
 package com.desafio.feed.data.repository
 
-import com.desafio.feed.domain.model.New
+import com.desafio.feed.data.RetrofitClient
+import com.desafio.feed.domain.model.Feed
 
 interface FeedRepository {
-    suspend fun getFeed(): List<New>
+    suspend fun getFeed(): Feed
 }
 
-class FeedRepositoryImpl (): FeedRepository {
+class FeedRepositoryImpl: FeedRepository {
 
-    override suspend fun getFeed(): List<New> {
-        TODO("Not yet implemented")
+    override suspend fun getFeed(): Feed {
+        return RetrofitClient.FeedApi.apiService.fetchFeed()
     }
 }

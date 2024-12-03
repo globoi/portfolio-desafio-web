@@ -1,6 +1,7 @@
 package com.desafio.feed.domain.model
 
-data class New (
+data class New(
     val type: String,
-    val aggregatedPosts: List<AggregatedPosts>
+    val publication: String,
+    val content: NewContent
 )

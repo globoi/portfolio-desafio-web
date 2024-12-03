@@ -37,11 +37,11 @@ android {
     buildFeatures {
         compose = true
     }
-    dynamicFeatures += setOf(":feed")
 }
 
 dependencies {
 
+    implementation(project(":feed"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
