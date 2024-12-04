@@ -17,7 +17,7 @@ object RetrofitClient {
 
     object FeedApi {
         val apiService: FeedService by lazy {
-            RetrofitClient.retrofit.create(FeedService::class.java)
+            retrofit.create(FeedService::class.java)
         }
     }
 }

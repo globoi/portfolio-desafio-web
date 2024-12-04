@@ -7,5 +7,4 @@ interface FeedService {
 
     @GET("/feed/g1")
     suspend fun fetchFeed(): Feed
-
 }
