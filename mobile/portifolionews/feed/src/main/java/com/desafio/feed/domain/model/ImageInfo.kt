@@ -1,5 +1,5 @@
 package com.desafio.feed.domain.model
 
 data class ImageInfo (
-val teste: String
+    val url: String
 )

@@ -20,6 +20,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -30,10 +31,7 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.desafio.feed.R
-import com.desafio.feed.domain.model.Chapeu
-import com.desafio.feed.domain.model.Content
-import com.desafio.feed.domain.model.ImageInfo
-import com.desafio.feed.domain.model.News
+import com.desafio.feed.domain.dto.NewsDto
 
 
 @Composable
@@ -58,13 +56,13 @@ fun MainView(feedViewModel: FeedViewModel) {
 
         is FeedState.SUCCESS -> {
             val feedNews = (state as FeedState.SUCCESS).feedNews
-            NewsListScreen(feedNews.feed.falkor.items)
+            NewsListScreen(feedNews)
         }
     }
 }
 
 @Composable
-fun NewsListScreen(news: List<News>) {
+fun NewsListScreen(news: List<NewsDto>) {
     LazyColumn(
         modifier = Modifier
             .padding(8.dp)
@@ -76,42 +74,50 @@ fun NewsListScreen(news: List<News>) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .heightIn(150.dp)
+                    .padding(16.dp)
             ) {
                 Column(
                     modifier = Modifier
                         .padding(start = 6.dp)
                         .fillMaxWidth(),
                     verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = item.content?.chapeu?.label ?: "", fontSize = 16.sp,
+                        text = item.chapeu, fontSize = 16.sp,
                         color = Color.Black,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(top = 2.dp)
                     )
 
                     Text(
-                        text = item.content?.title ?: "",
+                        text = item.title,
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.Black
                     )
 
-                    AsyncImage(
-                        model = ImageRequest.Builder(LocalContext.current)
-                            .data("https://s2-g1.glbimg.com/823PaUZLsSDF4TlXFw7PwYTtaBk=/0x0:1136x639/810x456/smart/https://i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2024/n/7/pPgPAaRdOFxgbZALWT5w/pai-jovem-jogado-ponte.jpg")
-                            .crossfade(true)
-                            .build(),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(304.dp),
-                        contentDescription = null,
-                        placeholder = painterResource(id = R.drawable.placeholder)
+                    item.image?.let {
+                        AsyncImage(
+                            model = ImageRequest.Builder(LocalContext.current)
+                                .data(item.image)
+                                .crossfade(true)
+                                .build(),
+                            modifier = Modifier
+                                .fillMaxWidth().height(200.dp),
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop,
+                            placeholder = painterResource(id = R.drawable.placeholder)
+                        )
+                    }
+
+                    Text(
+                        text = item.summary, fontSize = 16.sp,
+                        color = Color.Black,
+                        modifier = Modifier.padding(top = 2.dp)
                     )
 
                     Text(
-                        text = item.content?.summary ?: "", fontSize = 16.sp,
+                        text = item.metadata, fontSize = 16.sp,
                         color = Color.Black,
                         modifier = Modifier.padding(top = 2.dp)
                     )
@@ -127,15 +133,38 @@ fun NewsListScreen(news: List<News>) {
 fun GreetingPreview() {
     NewsListScreen(
         listOf(
-            News( type = "sas",
-                Content(
-                    chapeu = Chapeu("asasa"),
-                    summary = "sdfsdfs f sdfs f",
-                    title = "Titulo e tals",
-                    url = "Titulo e tals",
-                    imageInfo = ImageInfo("")
-                ),
-                metadata = "sas"
+            NewsDto(
+                title = "Title",
+                summary = "Summary",
+                chapeu = "Chapeu",
+                image = "sdsdsdsdsdsd",
+                metadata = "MetaData  - 20/01/1003",
+                aggregatedPostDtos = null,
+                url = ""
+            ),NewsDto(
+                title = "Title",
+                summary = "Summary",
+                chapeu = "Chapeu",
+                image = "sdsdsdsdsdsd",
+                metadata = "MetaData  - 20/01/1003",
+                aggregatedPostDtos = null,
+                url = ""
+            ),NewsDto(
+                title = "Title",
+                summary = "Summary",
+                chapeu = "Chapeu",
+                image = "sdsdsdsdsdsd",
+                metadata = "MetaData  - 20/01/1003",
+                aggregatedPostDtos = null,
+                url = ""
+            ),NewsDto(
+                title = "Title",
+                summary = "Summary",
+                chapeu = "Chapeu",
+                image = "sdsdsdsdsdsd",
+                metadata = "MetaData  - 20/01/1003",
+                aggregatedPostDtos = null,
+                url = ""
             )
         )
     )
