@@ -26,5 +26,5 @@ object RestModule {
 
     @Provides
     @Singleton
-    private fun provideFeedService(retrofit: Retrofit) = retrofit.create(FeedService::class.java)
+    fun provideFeedService(retrofit: Retrofit) = retrofit.create(FeedService::class.java)
 }

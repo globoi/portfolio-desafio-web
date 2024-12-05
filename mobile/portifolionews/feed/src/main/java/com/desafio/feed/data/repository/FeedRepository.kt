@@ -1,6 +1,5 @@
 package com.desafio.feed.data.repository
 
-import com.desafio.feed.data.RetrofitClient
 import com.desafio.feed.data.service.FeedService
 import com.desafio.feed.domain.model.Feed
 import javax.inject.Inject

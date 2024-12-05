@@ -2,19 +2,26 @@ package com.desafio.portifolionews
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import com.desafio.portifolionews.databinding.ActivityMainBinding
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
+import com.desafio.feed.presentation.ui.FeedViewModel
+import com.desafio.feed.presentation.ui.MainView
+import com.desafio.portifolionews.ui.theme.PortifolioNewsTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    private val binding by lazy {
-        ActivityMainBinding.inflate(layoutInflater)
-    }
+    private val feedViewModel : FeedViewModel by viewModels<FeedViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val view = binding.root
-        setContentView(view)
+        enableEdgeToEdge()
+        setContent {
+            PortifolioNewsTheme {
+                MainView(feedViewModel)
+            }
+        }
     }
 }

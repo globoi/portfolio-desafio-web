@@ -1,9 +1,8 @@
 package com.desafio.feed.domain.model
 
 data class NewContent  (
-    val section: String,
+    val chapeu: Chapeu,
     val summary: String,
-    val title: String,
-    val image: ImageInfo,
+    val title: String?,
     val url: String
 )
