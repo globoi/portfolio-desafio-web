@@ -3,14 +3,15 @@ package com.desafio.feed.presentation.ui
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,8 +30,10 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.desafio.feed.R
-import com.desafio.feed.domain.model.New
-import com.desafio.feed.domain.model.NewContent
+import com.desafio.feed.domain.model.Chapeu
+import com.desafio.feed.domain.model.Content
+import com.desafio.feed.domain.model.ImageInfo
+import com.desafio.feed.domain.model.News
 
 
 @Composable
@@ -54,14 +57,14 @@ fun MainView(feedViewModel: FeedViewModel) {
         }
 
         is FeedState.SUCCESS -> {
-            val feed = (state as FeedState.SUCCESS).feed
-            NewsListScreen(feed.feed.falkor.items)
+            val feedNews = (state as FeedState.SUCCESS).feedNews
+            NewsListScreen(feedNews.feed.falkor.items)
         }
     }
 }
 
 @Composable
-fun NewsListScreen(news: List<New>) {
+fun NewsListScreen(news: List<News>) {
     LazyColumn(
         modifier = Modifier
             .padding(8.dp)
@@ -69,50 +72,50 @@ fun NewsListScreen(news: List<New>) {
     ) {
         items(news) { item ->
 
-            Column(
+            Card(
                 modifier = Modifier
-                    .padding(start = 6.dp)
-                    .fillMaxWidth(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .fillMaxWidth()
+                    .heightIn(150.dp)
             ) {
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Text(
-                    text = item.content?.chapeu?.label ?: "", fontSize = 16.sp,
-                    color = Color.Black,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(top = 2.dp)
-                )
-
-                Text(
-                    text = item.content?.title ?: "",
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Black
-                )
-
-                AsyncImage(
-                    model = ImageRequest.Builder(LocalContext.current)
-                        .data("https://s2-g1.glbimg.com/823PaUZLsSDF4TlXFw7PwYTtaBk=/0x0:1136x639/810x456/smart/https://i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2024/n/7/pPgPAaRdOFxgbZALWT5w/pai-jovem-jogado-ponte.jpg")
-                        .crossfade(true)
-                        .build(),
+                Column(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .height(304.dp),
-                    contentDescription = null,
-                    placeholder = painterResource(id = R.drawable.placeholder)
-                )
+                        .padding(start = 6.dp)
+                        .fillMaxWidth(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = item.content?.chapeu?.label ?: "", fontSize = 16.sp,
+                        color = Color.Black,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(top = 2.dp)
+                    )
 
-                Text(
-                    text = item.content?.summary ?: "", fontSize = 16.sp,
-                    color = Color.Black,
-                    modifier = Modifier.padding(top = 2.dp)
-                )
+                    Text(
+                        text = item.content?.title ?: "",
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black
+                    )
 
-                Spacer(modifier = Modifier.height(8.dp))
+                    AsyncImage(
+                        model = ImageRequest.Builder(LocalContext.current)
+                            .data("https://s2-g1.glbimg.com/823PaUZLsSDF4TlXFw7PwYTtaBk=/0x0:1136x639/810x456/smart/https://i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2024/n/7/pPgPAaRdOFxgbZALWT5w/pai-jovem-jogado-ponte.jpg")
+                            .crossfade(true)
+                            .build(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(304.dp),
+                        contentDescription = null,
+                        placeholder = painterResource(id = R.drawable.placeholder)
+                    )
 
+                    Text(
+                        text = item.content?.summary ?: "", fontSize = 16.sp,
+                        color = Color.Black,
+                        modifier = Modifier.padding(top = 2.dp)
+                    )
+                }
             }
         }
     }
@@ -124,50 +127,18 @@ fun NewsListScreen(news: List<New>) {
 fun GreetingPreview() {
     NewsListScreen(
         listOf(
-            New(
-                "sas", "sas", NewContent(
-                    chapeu = "asasa",
+            News( type = "sas",
+                Content(
+                    chapeu = Chapeu("asasa"),
                     summary = "sdfsdfs f sdfs f",
                     title = "Titulo e tals",
-                    url = "Titulo e tals"
-                )
-            ), New(
-                "sas", "sas", NewContent(
-                    chapeu = "asasa",
-                    summary = "sdfsdfs f sdfs f",
-                    title = "Titulo e tals",
-                    url = "Titulo e tals"
-                )
-            ), New(
-                "sas", "sas", NewContent(
-                    chapeu = "asasa",
-                    summary = "sdfsdfs f sdfs f",
-                    title = "Titulo e tals",
-                    url = "Titulo e tals"
-                )
-            ), New(
-                "sas", "sas", NewContent(
-                    chapeu = "asasa",
-                    summary = "sdfsdfs f sdfs f",
-                    title = "Titulo e tals",
-                    url = "Titulo e tals"
-                )
-            ), New(
-                "sas", "sas", NewContent(
-                    chapeu = "asasa",
-                    summary = "sdfsdfs f sdfs f",
-                    title = "Titulo e tals",
-                    url = "Titulo e tals"
-                )
-            ), New(
-                "sas", "sas", NewContent(
-                    chapeu = "asasa",
-                    summary = "sdfsdfs f sdfs f",
-                    title = "Titulo e tals",
-                    url = "Titulo e tals"
-                )
+                    url = "Titulo e tals",
+                    imageInfo = ImageInfo("")
+                ),
+                metadata = "sas"
             )
         )
     )
 }
+
 

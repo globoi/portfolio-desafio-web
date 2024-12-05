@@ -1,10 +1,9 @@
 package com.desafio.feed.presentation.ui
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.desafio.feed.domain.model.Feed
+import com.desafio.feed.domain.model.FeedNews
 import com.desafio.feed.domain.usecase.FeedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -18,8 +17,8 @@ class FeedViewModel @Inject constructor(
     private val feedUseCase: FeedUseCase
 ) : ViewModel() {
 
-    private val _feedLiveData = MutableLiveData<Feed>()
-    val feedLiveData get() = _feedLiveData
+    private val _feedNewsLiveData = MutableLiveData<FeedNews>()
+    val feedLiveData get() = _feedNewsLiveData
 
     val feedState = MutableStateFlow<FeedState>(FeedState.START)
 
