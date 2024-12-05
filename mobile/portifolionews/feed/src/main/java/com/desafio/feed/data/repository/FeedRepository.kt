@@ -1,14 +1,18 @@
 package com.desafio.feed.data.repository
 
-import com.desafio.feed.domain.model.New
+import com.desafio.feed.data.service.FeedService
+import com.desafio.feed.domain.model.FeedNews
+import javax.inject.Inject
 
 interface FeedRepository {
-    suspend fun getFeed(): List<New>
+    suspend fun getFeed(): FeedNews
 }
 
-class FeedRepositoryImpl (): FeedRepository {
+class FeedRepositoryImpl @Inject constructor(
+    private val feedService: FeedService
+) : FeedRepository {
 
-    override suspend fun getFeed(): List<New> {
-        TODO("Not yet implemented")
+    override suspend fun getFeed(): FeedNews {
+        return feedService.fetchFeed()
     }
 }

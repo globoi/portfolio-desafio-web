@@ -1,9 +1,9 @@
 package com.desafio.feed.domain.model
 
-data class Content (
-    val title: String,
-    val summary: String,
-    val url: String,
+data class Content(
     val chapeu: Chapeu?,
-    val image: Image
+    val summary: String?,
+    val title: String?,
+    val image: ImageContent?,
+    val url: String
 )
