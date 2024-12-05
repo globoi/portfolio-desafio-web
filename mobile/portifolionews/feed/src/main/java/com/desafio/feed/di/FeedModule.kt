@@ -2,8 +2,8 @@ package com.desafio.feed.di
 
 import com.desafio.feed.data.repository.FeedRepository
 import com.desafio.feed.data.repository.FeedRepositoryImpl
-import com.desafio.feed.domain.dto.AggregatedPostsDto
-import com.desafio.feed.domain.dto.NewsDto
+import com.desafio.feed.presentation.ui.dto.AggregatedPostsDto
+import com.desafio.feed.presentation.ui.dto.NewsDto
 import com.desafio.feed.domain.mapper.AggregatedPostsMapper
 import com.desafio.feed.domain.mapper.Mapper
 import com.desafio.feed.domain.mapper.NewsMapper

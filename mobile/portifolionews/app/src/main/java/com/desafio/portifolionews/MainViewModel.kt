@@ -14,13 +14,13 @@ class MainViewModel @Inject constructor(
     private val feedRepository: FeedRepository
 ) : ViewModel() {
 
-    private val feedNewsLiveData = MutableLiveData<FeedNews>()
-    val feedLV get() = feedNewsLiveData
-
-    init {
-        viewModelScope.launch {
-            val news = feedRepository.getFeed()
-            feedNewsLiveData.postValue(news)
-        }
-    }
+//    private val feedNewsLiveData = MutableLiveData<FeedNews>()
+//    val feedLV get() = feedNewsLiveData
+//
+//    init {
+//        viewModelScope.launch {
+//            val news = feedRepository.getFeed()
+//            feedNewsLiveData.postValue(news)
+//        }
+//    }
 }
