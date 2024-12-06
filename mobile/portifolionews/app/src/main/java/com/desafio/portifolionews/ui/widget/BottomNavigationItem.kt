@@ -13,11 +13,11 @@ data class BottomNavigationItem(
                 route = NavigationItem.Feed.route
             ),
             BottomNavigationItem(
-                label = "Search",
+                label = "Economy",
                 route = NavigationItem.Economy.route
             ),
             BottomNavigationItem(
-                label = "Profile",
+                label = "Menu",
                 route = NavigationItem.Menu.route
             ),
         )

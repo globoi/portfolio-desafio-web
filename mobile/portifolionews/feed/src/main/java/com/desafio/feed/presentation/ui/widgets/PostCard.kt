@@ -2,12 +2,16 @@ package com.desafio.feed.presentation.ui.widgets
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -28,32 +32,43 @@ import com.desafio.feed.presentation.ui.dto.NewsDto
 @Composable
 fun PostCard(
     postCardModifier: Modifier,
-    post: NewsDto
+    post: NewsDto,
+    onNavigateToNew: (String) -> Unit = {}
 ) {
 
-    Card(
+    Column(
         modifier = postCardModifier
             .fillMaxWidth()
             .heightIn(150.dp)
-            .padding(16.dp)
+            .padding(vertical = 16.dp, horizontal = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Column(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .clickable {
+                    onNavigateToNew(post.url)
+                },
             verticalArrangement = Arrangement.Center,
         ) {
             Text(
-                text = post.chapeu!!, fontSize = 16.sp,
-                color = Color.Black,
+                text = post.chapeu, fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(top = 2.dp)
             )
 
+            Spacer(
+                modifier = Modifier.height(16.dp)
+            )
+
             Text(
-                text = post.title!!,
+                text = post.title,
                 fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.Black
+                fontWeight = FontWeight.Bold
+            )
+
+            Spacer(
+                modifier = Modifier.height(8.dp)
             )
 
             post.image?.let {
@@ -71,34 +86,67 @@ fun PostCard(
                 )
             }
 
-            Text(
-                text = post.summary, fontSize = 16.sp,
-                color = Color.Black,
-                modifier = Modifier.padding(top = 2.dp)
+
+            Spacer(
+                modifier = Modifier.height(8.dp)
             )
 
             Text(
-                text = post.metadata!!, fontSize = 16.sp,
-                color = Color.Black,
+                text = post.summary, fontSize = 16.sp,
+                modifier = Modifier.padding(top = 2.dp)
+            )
+
+            Spacer(
+                modifier = Modifier.height(8.dp)
+            )
+
+            Text(
+                text = post.metadata, fontSize = 16.sp,
                 modifier = Modifier.padding(top = 2.dp)
             )
         }
+
+        Spacer(
+            modifier = Modifier.height(16.dp)
+        )
+
+        post.aggregatedPostDtos?.forEach { item ->
+            Column(
+                modifier = postCardModifier
+                    .padding(vertical = 16.dp)
+                    .clickable {
+                        onNavigateToNew(item.url)
+                    },
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                HorizontalDivider(thickness = 2.dp)
+                Text(modifier = postCardModifier, text = item.title)
+            }
+        }
     }
+
+    Spacer(
+        modifier = Modifier.height(16.dp)
+    )
 }
 
 
 @Preview(showBackground = true)
 @Composable
 fun PostCardPreview() {
-//    PostCard(
-//        NewsDto(
-//            title = "Title",
-//            summary = "Summary",
-//            chapeu = "Chapeu",
-//            image = "sdsdsdsdsdsd",
-//            metadata = "MetaData  - 20/01/1003",
-//            aggregatedPostDtos = null,
-//            url = ""
-//        )
-//    )
+    PostCard(
+        postCardModifier = Modifier
+            .fillMaxWidth()
+            .heightIn(150.dp)
+            .padding(horizontal = 8.dp),
+        NewsDto(
+            title = "Title",
+            summary = "Summary",
+            chapeu = "Chapeu",
+            image = "sdsdsdsdsdsd",
+            metadata = "MetaData  - 20/01/1003",
+            aggregatedPostDtos = null,
+            url = ""
+        )
+    )
 }

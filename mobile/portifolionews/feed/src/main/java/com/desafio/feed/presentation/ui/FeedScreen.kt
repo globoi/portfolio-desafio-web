@@ -40,7 +40,6 @@ fun FeedScreen(
                 modifier = Modifier
                     .padding(8.dp)
             ) {
-
                 PostList(
                     contentList = feedViewModel.loadNextPage(),
                     posts = feedState.feedDTO.postList,

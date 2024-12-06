@@ -31,9 +31,9 @@ fun PostList(
             items(
                 posts
             ) { item ->
-                PostCard(postCardModifier = Modifier.clickable {
+                PostCard(postCardModifier = Modifier, item) {
                     onNavigateToNew(item.url)
-                }, item)
+                }
             }
         }
 
@@ -62,33 +62,33 @@ fun PostList(
 @Preview(showBackground = true)
 @Composable
 fun PostListPreview() {
-//    PostList(
-//        listOf(
-//            NewsDto(
-//                title = "Title",
-//                summary = "Summary",
-//                chapeu = "Chapeu",
-//                image = "sdsdsdsdsdsd",
-//                metadata = "MetaData  - 20/01/1003",
-//                aggregatedPostDtos = null,
-//                url = ""
-//            ), NewsDto(
-//                title = "Title",
-//                summary = "Summary",
-//                chapeu = "Chapeu",
-//                image = "sdsdsdsdsdsd",
-//                metadata = "MetaData  - 20/01/1003",
-//                aggregatedPostDtos = null,
-//                url = ""
-//            ), NewsDto(
-//                title = "Title",
-//                summary = "Summary",
-//                chapeu = "Chapeu",
-//                image = "sdsdsdsdsdsd",
-//                metadata = "MetaData  - 20/01/1003",
-//                aggregatedPostDtos = null,
-//                url = ""
-//            )
-//        )
-//    )
+    PostList(posts =
+        listOf(
+            NewsDto(
+                title = "Title",
+                summary = "Summary",
+                chapeu = "Chapeu",
+                image = "sdsdsdsdsdsd",
+                metadata = "MetaData  - 20/01/1003",
+                aggregatedPostDtos = null,
+                url = ""
+            ), NewsDto(
+                title = "Title",
+                summary = "Summary",
+                chapeu = "Chapeu",
+                image = "sdsdsdsdsdsd",
+                metadata = "MetaData  - 20/01/1003",
+                aggregatedPostDtos = null,
+                url = ""
+            ), NewsDto(
+                title = "Title",
+                summary = "Summary",
+                chapeu = "Chapeu",
+                image = "sdsdsdsdsdsd",
+                metadata = "MetaData  - 20/01/1003",
+                aggregatedPostDtos = null,
+                url = ""
+            )
+        )
+    )
 }
