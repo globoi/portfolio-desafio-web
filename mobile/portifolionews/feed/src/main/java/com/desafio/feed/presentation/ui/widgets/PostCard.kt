@@ -1,5 +1,6 @@
 package com.desafio.feed.presentation.ui.widgets
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,16 +26,19 @@ import com.desafio.feed.R
 import com.desafio.feed.presentation.ui.dto.NewsDto
 
 @Composable
-fun PostCard(post: NewsDto) {
+fun PostCard(
+    postCardModifier: Modifier,
+    post: NewsDto
+) {
+
     Card(
-        modifier = Modifier
+        modifier = postCardModifier
             .fillMaxWidth()
             .heightIn(150.dp)
             .padding(16.dp)
     ) {
         Column(
             modifier = Modifier
-                .padding(start = 6.dp)
                 .fillMaxWidth(),
             verticalArrangement = Arrangement.Center,
         ) {
@@ -59,7 +63,8 @@ fun PostCard(post: NewsDto) {
                         .crossfade(true)
                         .build(),
                     modifier = Modifier
-                        .fillMaxWidth().height(200.dp),
+                        .fillMaxWidth()
+                        .height(200.dp),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     placeholder = painterResource(id = R.drawable.placeholder)
@@ -67,7 +72,7 @@ fun PostCard(post: NewsDto) {
             }
 
             Text(
-                text = post.summary!!, fontSize = 16.sp,
+                text = post.summary, fontSize = 16.sp,
                 color = Color.Black,
                 modifier = Modifier.padding(top = 2.dp)
             )
@@ -85,15 +90,15 @@ fun PostCard(post: NewsDto) {
 @Preview(showBackground = true)
 @Composable
 fun PostCardPreview() {
-    PostCard(
-        NewsDto(
-            title = "Title",
-            summary = "Summary",
-            chapeu = "Chapeu",
-            image = "sdsdsdsdsdsd",
-            metadata = "MetaData  - 20/01/1003",
-            aggregatedPostDtos = null,
-            url = ""
-        )
-    )
+//    PostCard(
+//        NewsDto(
+//            title = "Title",
+//            summary = "Summary",
+//            chapeu = "Chapeu",
+//            image = "sdsdsdsdsdsd",
+//            metadata = "MetaData  - 20/01/1003",
+//            aggregatedPostDtos = null,
+//            url = ""
+//        )
+//    )
 }

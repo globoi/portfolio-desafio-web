@@ -43,6 +43,7 @@ dependencies {
 
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
+    implementation(libs.hilt.compose.navigation)
 
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -53,6 +54,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.paging)
     implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.navigation)
     implementation(libs.coil.compose)
     implementation(libs.coil.network)
 
