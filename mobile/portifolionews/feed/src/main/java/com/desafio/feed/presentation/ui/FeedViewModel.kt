@@ -35,13 +35,13 @@ class FeedViewModel @Inject constructor(
         feedState.value = FeedState.REFRESH(_isRefreshing.value)
     }
 
-    fun loadFeed() = viewModelScope.launch {
+    fun loadFeed(content: String) = viewModelScope.launch {
         feedState.value = FeedState.LOADING
 
         try {
 
             val feed = withContext(Dispatchers.IO) {
-                feedUseCase.fetchFeed()
+                feedUseCase.fetchFeed(content)
             }
 
             _isRefreshing.update { false }

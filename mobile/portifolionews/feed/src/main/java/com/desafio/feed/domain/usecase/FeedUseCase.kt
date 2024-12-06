@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 interface FeedUseCase {
-    suspend fun fetchFeed(): FeedDTO
+    suspend fun fetchFeed(content: String): FeedDTO
     fun fetchNextPage(
         product: String,
         id: String
@@ -24,8 +24,8 @@ class FeedUseCaseImpl @Inject constructor(
     private val feedRepository: FeedRepository,
     private val newsMapper: Mapper<News, NewsDto>
 ) : FeedUseCase {
-    override suspend fun fetchFeed(): FeedDTO {
-       return when (val response = feedRepository.getFirstPageFeed()) {
+    override suspend fun fetchFeed(content: String): FeedDTO {
+       return when (val response = feedRepository.getFirstPageFeed(content)) {
             is NetworkResponse.Error -> {
                 FeedDTO(
                     postList = listOf(),

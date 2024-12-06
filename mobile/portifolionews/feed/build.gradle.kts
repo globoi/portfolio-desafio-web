@@ -43,7 +43,6 @@ dependencies {
 
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
-    implementation(libs.hilt.compose.navigation)
 
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
