@@ -7,7 +7,7 @@ import com.desafio.feed.presentation.ui.dto.NewsDto
 import com.desafio.feed.domain.mapper.AggregatedPostsMapper
 import com.desafio.feed.domain.mapper.Mapper
 import com.desafio.feed.domain.mapper.NewsMapper
-import com.desafio.feed.domain.model.News
+import com.desafio.feed.data.response.News
 import com.desafio.feed.domain.usecase.FeedUseCase
 import com.desafio.feed.domain.usecase.FeedUseCaseImpl
 import dagger.Binds

@@ -36,20 +36,20 @@ fun PostCard(
     onNavigateToNew: (String) -> Unit = {}
 ) {
 
-    Column(
+    Card(
         modifier = postCardModifier
             .fillMaxWidth()
             .heightIn(150.dp)
-            .padding(vertical = 16.dp, horizontal = 8.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+            .padding(vertical = 4.dp),
     ) {
         Column(
             modifier = Modifier
+                .padding(12.dp)
                 .fillMaxWidth()
                 .clickable {
                     onNavigateToNew(post.url)
                 },
-            verticalArrangement = Arrangement.Center,
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Text(
                 text = post.chapeu, fontSize = 16.sp,
@@ -67,11 +67,11 @@ fun PostCard(
                 fontWeight = FontWeight.Bold
             )
 
-            Spacer(
-                modifier = Modifier.height(8.dp)
-            )
-
             post.image?.let {
+                Spacer(
+                    modifier = Modifier.height(8.dp)
+                )
+
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
                         .data(post.image)
@@ -84,12 +84,11 @@ fun PostCard(
                     contentScale = ContentScale.Crop,
                     placeholder = painterResource(id = R.drawable.placeholder)
                 )
+
+                Spacer(
+                    modifier = Modifier.height(8.dp)
+                )
             }
-
-
-            Spacer(
-                modifier = Modifier.height(8.dp)
-            )
 
             Text(
                 text = post.summary, fontSize = 16.sp,
@@ -113,13 +112,13 @@ fun PostCard(
         post.aggregatedPostDtos?.forEach { item ->
             Column(
                 modifier = postCardModifier
-                    .padding(vertical = 16.dp)
+                    .padding(16.dp)
                     .clickable {
                         onNavigateToNew(item.url)
                     },
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                HorizontalDivider(thickness = 2.dp)
+                HorizontalDivider(thickness = 1.dp)
                 Text(modifier = postCardModifier, text = item.title)
             }
         }

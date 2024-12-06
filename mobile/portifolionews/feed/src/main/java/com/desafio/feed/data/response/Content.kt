@@ -1,4 +1,4 @@
-package com.desafio.feed.domain.model
+package com.desafio.feed.data.response
 
 data class Content(
     val chapeu: Chapeu?,

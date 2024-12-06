@@ -1,4 +1,4 @@
-package com.desafio.feed.domain.model
+package com.desafio.feed.data.response
 
 data class FeedNews (
     val resource: FeedResource,

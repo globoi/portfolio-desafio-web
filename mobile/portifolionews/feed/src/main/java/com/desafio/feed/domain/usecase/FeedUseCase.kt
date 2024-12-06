@@ -5,7 +5,7 @@ import androidx.paging.map
 import com.desafio.feed.data.repository.FeedRepository
 import com.desafio.feed.data.response.NetworkResponse
 import com.desafio.feed.domain.mapper.Mapper
-import com.desafio.feed.domain.model.News
+import com.desafio.feed.data.response.News
 import com.desafio.feed.presentation.ui.dto.FeedDTO
 import com.desafio.feed.presentation.ui.dto.NewsDto
 import kotlinx.coroutines.flow.Flow

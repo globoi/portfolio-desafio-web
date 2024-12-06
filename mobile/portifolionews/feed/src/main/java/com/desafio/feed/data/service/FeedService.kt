@@ -1,6 +1,6 @@
 package com.desafio.feed.data.service
 
-import com.desafio.feed.domain.model.FeedNews
+import com.desafio.feed.data.response.FeedNews
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

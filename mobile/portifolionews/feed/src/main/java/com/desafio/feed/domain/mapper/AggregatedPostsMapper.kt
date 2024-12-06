@@ -1,7 +1,7 @@
 package com.desafio.feed.domain.mapper
 
 import com.desafio.feed.presentation.ui.dto.AggregatedPostsDto
-import com.desafio.feed.domain.model.News
+import com.desafio.feed.data.response.News
 import javax.inject.Inject
 
 class AggregatedPostsMapper @Inject constructor(): Mapper<News, AggregatedPostsDto> {

@@ -1,4 +1,4 @@
-package com.desafio.feed.domain.model
+package com.desafio.feed.data.response
 
 data class Feed (
     val oferta: String,

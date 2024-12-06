@@ -7,8 +7,8 @@ import com.desafio.feed.data.paging.NewsPagingSource
 import com.desafio.feed.data.response.NetworkResponse
 import com.desafio.feed.data.response.handleApi
 import com.desafio.feed.data.service.FeedService
-import com.desafio.feed.domain.model.FeedNews
-import com.desafio.feed.domain.model.News
+import com.desafio.feed.data.response.FeedNews
+import com.desafio.feed.data.response.News
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

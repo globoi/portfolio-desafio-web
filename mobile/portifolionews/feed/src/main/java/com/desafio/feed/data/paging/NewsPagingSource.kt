@@ -5,7 +5,7 @@ import androidx.paging.PagingState
 import com.desafio.feed.data.response.NetworkResponse
 import com.desafio.feed.data.response.handleApi
 import com.desafio.feed.data.service.FeedService
-import com.desafio.feed.domain.model.News
+import com.desafio.feed.data.response.News
 import javax.inject.Inject
 
 class NewsPagingSource @Inject constructor(
@@ -44,5 +44,4 @@ class NewsPagingSource @Inject constructor(
             LoadResult.Error(exception)
         }
     }
-
 }
