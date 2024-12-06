@@ -1,4 +1,4 @@
-package com.desafio.feed.presentation.ui.navigation
+package com.desafio.portifolionews.ui.navigation
 
 enum class Screen {
     FEED, MENU, ECONOMY, WEB_VIEW

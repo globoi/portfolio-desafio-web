@@ -1,4 +1,4 @@
-package com.desafio.feed.presentation.ui.navigation
+package com.desafio.portifolionews.ui.navigation
 
 sealed class NavigationItem (val route: String) {
     object Feed: NavigationItem(Screen.FEED.name)

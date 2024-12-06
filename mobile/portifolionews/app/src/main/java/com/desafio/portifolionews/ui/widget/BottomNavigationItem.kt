@@ -1,6 +1,6 @@
 package com.desafio.portifolionews.ui.widget
 
-import com.desafio.feed.presentation.ui.navigation.NavigationItem
+import com.desafio.portifolionews.ui.navigation.NavigationItem
 
 data class BottomNavigationItem(
     val label: String = "",
