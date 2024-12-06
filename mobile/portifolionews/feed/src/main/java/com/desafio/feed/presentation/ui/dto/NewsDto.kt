@@ -1,4 +1,4 @@
-package com.desafio.feed.domain.dto
+package com.desafio.feed.presentation.ui.dto
 
 data class NewsDto  (
     val title: String,

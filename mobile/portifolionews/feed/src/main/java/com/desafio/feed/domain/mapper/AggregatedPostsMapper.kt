@@ -1,6 +1,6 @@
 package com.desafio.feed.domain.mapper
 
-import com.desafio.feed.domain.dto.AggregatedPostsDto
+import com.desafio.feed.presentation.ui.dto.AggregatedPostsDto
 import com.desafio.feed.domain.model.News
 import javax.inject.Inject
 

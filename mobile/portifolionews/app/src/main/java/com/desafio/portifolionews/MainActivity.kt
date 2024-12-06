@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import com.desafio.feed.presentation.ui.FeedViewModel
-import com.desafio.feed.presentation.ui.MainView
+import com.desafio.feed.presentation.ui.FeedScreen
 import com.desafio.portifolionews.ui.theme.PortifolioNewsTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PortifolioNewsTheme {
-                MainView(feedViewModel)
+                FeedScreen(feedViewModel)
             }
         }
     }
