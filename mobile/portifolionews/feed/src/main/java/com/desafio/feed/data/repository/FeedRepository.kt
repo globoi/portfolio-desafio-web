@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 interface FeedRepository {
-    suspend fun getFirstPageFeed(): NetworkResponse<FeedNews>
+    suspend fun getFirstPageFeed(content: String): NetworkResponse<FeedNews>
     fun getNextPage(product: String,  id: String): Flow<PagingData<News>>
 }
 
@@ -21,8 +21,8 @@ class FeedRepositoryImpl @Inject constructor(
     private val feedService: FeedService
 ) : FeedRepository {
 
-    override suspend fun getFirstPageFeed(): NetworkResponse<FeedNews> =
-        handleApi { feedService.fetchFirstPageFeed() }
+    override suspend fun getFirstPageFeed(content: String): NetworkResponse<FeedNews> =
+        handleApi { feedService.fetchFirstPageFeed(content) }
 
     override fun getNextPage(
         product: String,

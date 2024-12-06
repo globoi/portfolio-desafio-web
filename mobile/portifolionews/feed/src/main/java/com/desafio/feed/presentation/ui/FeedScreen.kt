@@ -1,7 +1,6 @@
 package com.desafio.feed.presentation.ui
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
@@ -14,13 +13,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.desafio.feed.presentation.ui.widgets.PostList
 import com.desafio.feed.presentation.ui.widgets.PullToRefreshBox
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FeedScreen(
+    content: String,
     feedViewModel: FeedViewModel,
     onNavigateToNew: (String) -> Unit = {}
 ) {
@@ -29,7 +28,7 @@ fun FeedScreen(
 
     when (state) {
         FeedState.START -> {
-            feedViewModel.loadFeed()
+            feedViewModel.loadFeed(content)
         }
 
         is FeedState.SUCCESS -> {
@@ -45,15 +44,14 @@ fun FeedScreen(
                 PostList(
                     contentList = feedViewModel.loadNextPage(),
                     posts = feedState.feedDTO.postList,
-                    modifier = Modifier
-                        .fillMaxHeight(),
+                    modifier = Modifier,
                     onNavigateToNew = onNavigateToNew
                 )
             }
         }
 
         is FeedState.REFRESH -> {
-            feedViewModel.loadFeed()
+            feedViewModel.loadFeed(content)
         }
 
         is FeedState.LOADING -> {
@@ -73,9 +71,7 @@ fun FeedScreen(
                 PostList(
                     contentList = feedViewModel.loadNextPage(),
                     posts = feedState.feedNews,
-                    modifier = Modifier
-                        .padding(8.dp)
-                        .fillMaxHeight(),
+                    modifier = Modifier,
                     onNavigateToNew = onNavigateToNew
                 )
             }

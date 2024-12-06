@@ -1,5 +1,6 @@
 package com.desafio.feed.presentation.ui.navigation
 
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -28,11 +29,27 @@ fun AppNavHost(
         composable(NavigationItem.Feed.route) {
             val viewModel = hiltViewModel<FeedViewModel>()
             FeedScreen(
+                content = "g1",
                 feedViewModel = viewModel,
                 onNavigateToNew = { url ->
                     val encodedUrl = URLEncoder.encode(url, StandardCharsets.UTF_8.toString())
                     navController.navigate("${NavigationItem.WebView.route}/$encodedUrl")
             })
+        }
+
+        composable(NavigationItem.Economy.route) {
+            val viewModel = hiltViewModel<FeedViewModel>()
+            FeedScreen(
+                content = "/https://g1.globo.com/economia/agronegocios",
+                feedViewModel = viewModel,
+                onNavigateToNew = { url ->
+                    val encodedUrl = URLEncoder.encode(url, StandardCharsets.UTF_8.toString())
+                    navController.navigate("${NavigationItem.WebView.route}/$encodedUrl")
+                })
+        }
+
+        composable(NavigationItem.Menu.route) {
+           Text("Menu")
         }
         composable(route = "${NavigationItem.WebView.route}/{url}",
             arguments = listOf(navArgument("url") {
