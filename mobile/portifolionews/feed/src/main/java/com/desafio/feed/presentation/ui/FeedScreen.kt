@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -13,8 +14,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.desafio.feed.presentation.ui.widgets.PostList
+import com.desafio.feed.presentation.ui.widgets.PullToRefreshBox
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FeedScreen(
     feedViewModel: FeedViewModel,
@@ -29,18 +33,30 @@ fun FeedScreen(
         }
 
         is FeedState.SUCCESS -> {
-            val feed = (state as FeedState.SUCCESS)
-            PostList(
-                contentList = feedViewModel.loadNextPage(),
-                posts = feed.feedDTO.postList,
+            val feedState = (state as FeedState.SUCCESS)
+
+            PullToRefreshBox(
+                isRefreshing = feedState.isRefreshing,
+                onRefresh = feedViewModel::onPullToRefreshTrigger,
                 modifier = Modifier
                     .padding(8.dp)
-                    .fillMaxHeight(),
-                onNavigateToNew = onNavigateToNew
-            )
+            ) {
+
+                PostList(
+                    contentList = feedViewModel.loadNextPage(),
+                    posts = feedState.feedDTO.postList,
+                    modifier = Modifier
+                        .fillMaxHeight(),
+                    onNavigateToNew = onNavigateToNew
+                )
+            }
         }
 
-        FeedState.LOADING -> {
+        is FeedState.REFRESH -> {
+            feedViewModel.loadFeed()
+        }
+
+        is FeedState.LOADING -> {
             Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
                 CircularProgressIndicator()
             }
@@ -53,15 +69,15 @@ fun FeedScreen(
         }
 
         is FeedState.FETCH -> {
-            val news = (state as FeedState.FETCH).feedNews
-            PostList(
-                contentList = feedViewModel.loadNextPage(),
-                posts = news,
-                modifier = Modifier
-                    .padding(8.dp)
-                    .fillMaxHeight(),
-                onNavigateToNew = onNavigateToNew
-            )
+            val feedState = (state as FeedState.FETCH)
+                PostList(
+                    contentList = feedViewModel.loadNextPage(),
+                    posts = feedState.feedNews,
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .fillMaxHeight(),
+                    onNavigateToNew = onNavigateToNew
+                )
+            }
         }
-    }
 }
