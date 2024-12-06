@@ -1,5 +1,6 @@
 package com.desafio.feed.presentation.ui.widgets
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -16,7 +17,8 @@ import kotlinx.coroutines.flow.Flow
 fun PostList(
     contentList: Flow<PagingData<NewsDto>>? = null,
     posts: List<NewsDto>?,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onNavigateToNew: (String) -> Unit = {}
 ) {
 
     val lazyPagingItems = contentList?.collectAsLazyPagingItems()
@@ -24,6 +26,16 @@ fun PostList(
     LazyColumn(
         modifier = modifier
     ) {
+
+        posts?.let {
+            items(
+                posts
+            ) { item ->
+                PostCard(postCardModifier = Modifier.clickable {
+                    onNavigateToNew(item.url)
+                }, item)
+            }
+        }
 
         lazyPagingItems?.let {
             items(
@@ -33,18 +45,15 @@ fun PostList(
             ) { index ->
                 val item = lazyPagingItems[index]
                 item?.let {
-                    PostCard(item)
+                    PostCard(
+                        postCardModifier = Modifier.clickable {
+                            onNavigateToNew(item.url)
+                        }, item
+                    )
                 }
             }
         }
 
-        posts?.let {
-            items(
-                posts
-            ) { item ->
-                PostCard(item)
-            }
-        }
 
     }
 }

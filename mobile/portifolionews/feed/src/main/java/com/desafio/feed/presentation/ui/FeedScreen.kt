@@ -16,7 +16,11 @@ import androidx.compose.ui.unit.sp
 import com.desafio.feed.presentation.ui.widgets.PostList
 
 @Composable
-fun FeedScreen(feedViewModel: FeedViewModel) {
+fun FeedScreen(
+    feedViewModel: FeedViewModel,
+    onNavigateToNew: (String) -> Unit = {}
+) {
+
     val state by feedViewModel.feedState.collectAsState()
 
     when (state) {
@@ -27,14 +31,12 @@ fun FeedScreen(feedViewModel: FeedViewModel) {
         is FeedState.SUCCESS -> {
             val feed = (state as FeedState.SUCCESS)
             PostList(
-                contentList = feedViewModel.loadNextPage(
-                    "g1",
-                    feed.feedDTO.oferta
-                ),
+                contentList = feedViewModel.loadNextPage(),
                 posts = feed.feedDTO.postList,
                 modifier = Modifier
                     .padding(8.dp)
-                    .fillMaxHeight()
+                    .fillMaxHeight(),
+                onNavigateToNew = onNavigateToNew
             )
         }
 
@@ -53,14 +55,12 @@ fun FeedScreen(feedViewModel: FeedViewModel) {
         is FeedState.FETCH -> {
             val news = (state as FeedState.FETCH).feedNews
             PostList(
-                contentList = feedViewModel.loadNextPage(
-                   "g1",
-                    "4af56893-1f9a-4504-9531-74458e481f91"
-                ),
+                contentList = feedViewModel.loadNextPage(),
                 posts = news,
                 modifier = Modifier
                     .padding(8.dp)
-                    .fillMaxHeight()
+                    .fillMaxHeight(),
+                onNavigateToNew = onNavigateToNew
             )
         }
     }

@@ -1,9 +1,12 @@
 package com.desafio.feed.presentation.ui
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import com.desafio.feed.domain.usecase.FeedUseCase
+import com.desafio.feed.presentation.ui.dto.FeedDTO
 import com.desafio.feed.presentation.ui.dto.NewsDto
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +23,10 @@ class FeedViewModel @Inject constructor(
 
     val feedState = MutableStateFlow<FeedState>(FeedState.START)
 
+    val feedContent: MutableLiveData<FeedDTO> by lazy {
+        MutableLiveData<FeedDTO>()
+    }
+
     fun loadFeed() = viewModelScope.launch {
         feedState.value = FeedState.LOADING
         try {
@@ -27,18 +34,17 @@ class FeedViewModel @Inject constructor(
                 feedUseCase.fetchFeed()
             }
             feedState.value = FeedState.SUCCESS(feed)
+            feedContent.value = feed
+
         } catch (e: Exception) {
             feedState.value = FeedState.FAILURE(e.message.toString())
         }
     }
 
-    fun loadNextPage(
-        product: String,
-        id: String
-    ): Flow<PagingData<NewsDto>> {
+    fun loadNextPage(): Flow<PagingData<NewsDto>> {
         return feedUseCase.fetchNextPage(
-            product = product,
-            id = id
+            product = feedContent.value?.tenant ?: "",
+            id = feedContent.value?.oferta ?: ""
         )
     }
 }

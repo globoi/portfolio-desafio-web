@@ -29,6 +29,7 @@ class FeedUseCaseImpl @Inject constructor(
             is NetworkResponse.Error -> {
                 FeedDTO(
                     postList = listOf(),
+                    tenant = "",
                     oferta = "",
                     nextPage = 1
                 )
@@ -45,6 +46,7 @@ class FeedUseCaseImpl @Inject constructor(
 
                 FeedDTO(
                     postList = items,
+                    tenant = response.value.resource.tenantId,
                     oferta = response.value.feed.oferta,
                     nextPage = response.value.feed.falkor.nextPage
                 )
