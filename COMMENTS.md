@@ -50,58 +50,30 @@ Com isso parti para o desenvolvimento do módulo do feed.
 
 Escolha das tecnologias .
 
-3. Desenvolvimento Frontend
+3. Desenvolvimento 
 Descrição:
 O desenvolvimento da interface do usuário (UI) foi a próxima etapa, onde construímos a parte visual e interativa da aplicação.
 
-Passos:
-Criação de wireframes ou mockups para visualização.
-Implementação das páginas principais (ex: lista de tarefas, página de adicionar tarefa).
-Implementação de funcionalidades interativas (ex: adicionar, editar e excluir tarefas).
-Ferramentas utilizadas:
-HTML, CSS, JavaScript (ou frameworks como React, Vue, etc.).
+Objetivos:
 
-4. Desenvolvimento Backend
-Descrição:
-Agora, focamos na criação do backend, onde lidamos com a lógica de negócios e com o armazenamento de dados.
+O aplicativo deve mostrar em uma tela inicial a lista de notícias mais recentes, com título, foto e descrição. A primeira página do feed está disponível através da URL: https://native-leon.globo.com/feed/g1
 
-Passos:
-Criação de APIs RESTful para comunicação entre o frontend e o banco de dados.
-Implementação de autenticação de usuários (se necessário).
-Testes de integração e comunicação com o banco de dados.
-Ferramentas utilizadas:
-Node.js, Express, MongoDB, etc.
+O aplicativo deve lidar com a paginação do feed, fazendo requisição para a próxima página e exibindo mais itens à medida que o usuário faz o scroll. Para saber mais como funciona a paginação, acesse o link da documentação da API DocNativeLeon.
 
-5. Testes
-Descrição:
-A fase de testes foi fundamental para garantir que todas as funcionalidades do sistema estivessem funcionando corretamente.
+Devem ser considerados apenas os itens com o campo "type" definido como "basico" ou "materia".
 
-Passos:
-Testes unitários e de integração.
-Testes manuais para validação das funcionalidades.
-Testes de usabilidade e interface do usuário.
+Cada item deve exibir o campo "chapeu" se ele existir, além do título, imagem e resumo.
 
-6. Desdobramento e Deploy
-Descrição:
-Depois de finalizado o desenvolvimento e os testes, o próximo passo foi a implantação do sistema.
+Em cada item também deve ser exibido o tempo em que ele foi publicado, usando o campo "metadata".
 
-Passos:
-Configuração de ambiente de produção.
-Deploy no servidor ou plataforma de hospedagem.
-Monitoramento e ajustes pós-implantação.
+Ao clicar em um item, o aplicativo deve levar à uma nova tela com uma webview exibindo a matéria clicada. Para isso você usará o campo "url" do item. Desta tela deve ser possível que o usuário volte à tela inicial.
 
-7. Manutenção e Atualizações
-Descrição:
-Após o lançamento, o trabalho não terminou. A manutenção contínua foi necessária para corrigir erros, melhorar o desempenho e adicionar novas funcionalidades.
+Deve ser possível que o usuário faça um "Pull to Refresh", para recarregar o feed.
 
-Passos:
-Correção de bugs reportados pelos usuários.
-Atualizações de segurança.
-Adição de novos recursos conforme feedback dos usuários.
-Conclusão
-Resumo das lições aprendidas, desafios enfrentados e as etapas futuras planejadas para o projeto.
+Além da tela inicial, deve existir uma outra tab com um outro feed disponível através da URL: "https://native-leon.globo.com/feed/https://g1.globo.com/economia/agronegocios". Este feed deve seguir também os requisitos dos itens 2 ao 7, com as mesmas features de paginação, posts, etc.
 
+Por fim, uma última tab com um menu, com itens do json Menu.json. É opcional o json estar embarcado ou em algum endpoint, fica a critério do desenvolvimento.
 
-
+Ao clicar em um item do menu, o aplicativo deve levar à uma nova tela com uma webview, carregando a URL do item selecionado.
 
 -------------------------------------------------------------------------------
