@@ -23,14 +23,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.paulajustino.worldinfocusapp.domain.model.NewsState
-import com.paulajustino.worldinfocusapp.domain.model.NewsItem
+import com.paulajustino.worldinfocusapp.domain.model.NewsItemModel
 import com.paulajustino.worldinfocusapp.ui.components.BottomBarComponent
 import com.paulajustino.worldinfocusapp.ui.components.DrawerMenuComponent
 import com.paulajustino.worldinfocusapp.ui.components.HorizontalPagerComponent
 import com.paulajustino.worldinfocusapp.ui.components.TabsComponent
 import com.paulajustino.worldinfocusapp.ui.components.TopBarComponent
 import com.paulajustino.worldinfocusapp.ui.theme.WorldInFocusAppTheme
-import com.paulajustino.worldinfocusapp.viewmodel.NewsFeedViewModel
+import com.paulajustino.worldinfocusapp.ui.viewmodel.NewsFeedViewModel
 import kotlinx.coroutines.launch
 
 /**
@@ -120,7 +120,7 @@ private fun ShowLoadingIndicator() {
 }
 
 @Composable
-private fun ShowNews(pagerState: PagerState, news: List<NewsItem>) {
+private fun ShowNews(pagerState: PagerState, news: List<NewsItemModel>) {
     HorizontalPagerComponent(pagerState, news)
 }
 
@@ -129,10 +129,11 @@ private fun ShowError(message: String) {
     Text("Erro ao carregar feed: $message")
 }
 
+/*
 @Preview
 @Composable
 fun HomeScreenPreview() {
     WorldInFocusAppTheme {
         HomeScreen(viewModel = NewsFeedViewModel())
     }
-}
+}*/

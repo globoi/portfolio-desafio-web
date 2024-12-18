@@ -28,7 +28,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.paulajustino.worldinfocusapp.R
-import com.paulajustino.worldinfocusapp.domain.model.NewsItem
+import com.paulajustino.worldinfocusapp.domain.model.NewsItemModel
 import com.paulajustino.worldinfocusapp.ui.buttons.ShareButton
 
 /**
@@ -39,7 +39,7 @@ import com.paulajustino.worldinfocusapp.ui.buttons.ShareButton
  */
 @Composable
 fun NewsFeedComponent(
-    newsItems: List<NewsItem> = emptyList(),
+    newsItems: List<NewsItemModel> = emptyList(),
     onNewsClick: (String) -> Unit = {}
 ) {
     LazyColumn(
@@ -58,7 +58,7 @@ fun NewsFeedComponent(
  */
 @Composable
 fun NewsComponent(
-    newsItem: NewsItem
+    newsItem: NewsItemModel
 ) {
     Card(
         modifier = Modifier
@@ -91,7 +91,7 @@ fun NewsComponent(
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = newsItem.description,
+                    text = newsItem.summary.orEmpty(),
                     maxLines = 3,
                     overflow = TextOverflow.Ellipsis
                 )
@@ -106,7 +106,7 @@ fun NewsComponent(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = newsItem.metadata,
+                        text = newsItem.metaData.orEmpty(),
                         style = MaterialTheme.typography.bodyMedium,
                         color = Color.Black
                     )

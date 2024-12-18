@@ -1,11 +1,13 @@
-package com.paulajustino.worldinfocusapp.viewmodel
+package com.paulajustino.worldinfocusapp.ui.viewmodel
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.paulajustino.worldinfocusapp.data.repository.NewsRepositoryImpl
+import com.paulajustino.worldinfocusapp.domain.model.NewsItemModel
 import com.paulajustino.worldinfocusapp.domain.model.NewsState
-import com.paulajustino.worldinfocusapp.domain.model.NewsItem
+import com.paulajustino.worldinfocusapp.utils.Result
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -15,13 +17,15 @@ import kotlinx.coroutines.launch
  */
 class NewsFeedViewModel : ViewModel() {
 
+    private val repository = NewsRepositoryImpl()
+
     // Estado interno para controlar o feed
     private val _newsState = MutableStateFlow<NewsState>(NewsState.Loading(false))
     val newsState: StateFlow<NewsState> get() = _newsState
 
     // Estado interno para controlar as notícias carregadas
-    private val _news = mutableStateOf<List<NewsItem>>(emptyList())
-    val news: State<List<NewsItem>> get() = _news
+    private val _news = mutableStateOf<List<NewsItemModel>>(emptyList())
+    val news: State<List<NewsItemModel>> get() = _news
 
     private var currentPage = 1 // será usado posteriormente para a paginação
 
@@ -39,16 +43,21 @@ class NewsFeedViewModel : ViewModel() {
 
         viewModelScope.launch {
             try {
-                // Se estiver fazendo refresh, reinicia a página
+                // Se for refresh, reinicia a página
                 if (isRefreshing) currentPage = 1
 
-                val feedResponse = fetchFeed(page = currentPage)
+                var filteredNewsFeed = emptyList<NewsItemModel>()
+                when (val feedModel = repository.getNewsFeed(0)) {
+                    is Result.Success -> {
+                        filteredNewsFeed =
+                            feedModel.value.news.filter { it.type == "basico" || it.type == "materia" }
+                    }
 
-                val filteredNews =
-                    feedResponse.items.filter { it.type == "basico" || it.type == "materia" }
+                    is Result.Error -> {}
+                }
 
                 // Se for refresh, começa com a lista limpa, senão, adiciona às notícias existentes
-                val newNews = if (isRefreshing) filteredNews else _news.value + filteredNews
+                val newNews = if (isRefreshing) filteredNewsFeed else _news.value + filteredNewsFeed
                 _news.value = newNews
 
                 _newsState.value = NewsState.Success(news = newNews)
@@ -57,31 +66,8 @@ class NewsFeedViewModel : ViewModel() {
                 if (!isRefreshing) currentPage++
 
             } catch (e: Exception) {
-                // Atualiza o estado para Error com a mensagem de erro
                 _newsState.value = NewsState.Error("Erro ao carregar o feed: ${e.message}")
             }
         }
     }
-
-    private fun fetchFeed(page: Int): NewsResponse {
-        // Simulação de uma chamada para API
-        return NewsResponse(
-            items = List(10) { index ->
-                NewsItem(
-                    id = index.toString(),
-                    title = "Notícia $index",
-                    description = "Descrição da notícia $index",
-                    type = if (index % 2 == 0) "basico" else "materia",
-                    chapeu = "Chapeu $index",
-                    metadata = "Metadata $index",
-                    url = "url da notícia $index"
-                )
-            }
-        )
-    }
 }
-
-// Modelo de resposta da API
-data class NewsResponse(
-    val items: List<NewsItem>
-)

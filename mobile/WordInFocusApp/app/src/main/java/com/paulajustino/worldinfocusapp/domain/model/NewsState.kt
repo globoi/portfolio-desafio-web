@@ -6,6 +6,6 @@ package com.paulajustino.worldinfocusapp.domain.model
  */
 sealed class NewsState {
     data class Loading(val isRefreshing: Boolean) : NewsState()
-    data class Success(val news: List<NewsItem>) : NewsState()
+    data class Success(val news: List<NewsItemModel>) : NewsState()
     data class Error(val message: String) : NewsState()
 }

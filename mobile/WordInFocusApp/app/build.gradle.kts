@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlinKsp)
 }
 
 android {
@@ -63,4 +64,10 @@ dependencies {
 
     // SplashScreen
     implementation(libs.androidx.splash.screen)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.moshi.kotlin)
+    implementation(libs.converter.moshi)
+    ksp(libs.moshi.kotlin.codegen)
 }

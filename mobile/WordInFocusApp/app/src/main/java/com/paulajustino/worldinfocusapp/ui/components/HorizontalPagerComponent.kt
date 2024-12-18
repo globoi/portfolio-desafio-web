@@ -6,7 +6,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.paulajustino.worldinfocusapp.domain.model.NewsItem
+import com.paulajustino.worldinfocusapp.domain.model.NewsItemModel
 
 /**
  * HorizontalPager para exibição das abas do feed de forma deslizante.
@@ -14,7 +14,7 @@ import com.paulajustino.worldinfocusapp.domain.model.NewsItem
  * @param pagerState Estado do pager
  */
 @Composable
-fun HorizontalPagerComponent(pagerState: PagerState, news: List<NewsItem>) {
+fun HorizontalPagerComponent(pagerState: PagerState, news: List<NewsItemModel>) {
     Column {
         HorizontalPager(
             state = pagerState,

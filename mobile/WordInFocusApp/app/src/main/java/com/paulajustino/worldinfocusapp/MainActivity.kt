@@ -8,7 +8,7 @@ import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.paulajustino.worldinfocusapp.ui.screens.HomeScreen
 import com.paulajustino.worldinfocusapp.ui.theme.WorldInFocusAppTheme
-import com.paulajustino.worldinfocusapp.viewmodel.NewsFeedViewModel
+import com.paulajustino.worldinfocusapp.ui.viewmodel.NewsFeedViewModel
 
 class MainActivity : ComponentActivity() {
 
