@@ -4,20 +4,23 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.paulajustino.worldinfocusapp.data.repository.NewsRepositoryImpl
+import com.paulajustino.worldinfocusapp.data.repository.NewsRepository
 import com.paulajustino.worldinfocusapp.domain.model.NewsItemModel
 import com.paulajustino.worldinfocusapp.domain.model.NewsState
 import com.paulajustino.worldinfocusapp.utils.Result
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * ViewModel responsável por gerenciar o estado da tela de feed de notícias.
  */
-class NewsFeedViewModel : ViewModel() {
-
-    private val repository = NewsRepositoryImpl()
+@HiltViewModel
+class NewsFeedViewModel @Inject constructor(
+    private val repository: NewsRepository
+) : ViewModel() {
 
     // Estado interno para controlar o feed
     private val _newsState = MutableStateFlow<NewsState>(NewsState.Loading(false))

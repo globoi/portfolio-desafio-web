@@ -20,16 +20,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.paulajustino.worldinfocusapp.domain.model.NewsState
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.paulajustino.worldinfocusapp.domain.model.NewsItemModel
+import com.paulajustino.worldinfocusapp.domain.model.NewsState
 import com.paulajustino.worldinfocusapp.ui.components.BottomBarComponent
 import com.paulajustino.worldinfocusapp.ui.components.DrawerMenuComponent
 import com.paulajustino.worldinfocusapp.ui.components.HorizontalPagerComponent
 import com.paulajustino.worldinfocusapp.ui.components.TabsComponent
 import com.paulajustino.worldinfocusapp.ui.components.TopBarComponent
-import com.paulajustino.worldinfocusapp.ui.theme.WorldInFocusAppTheme
 import com.paulajustino.worldinfocusapp.ui.viewmodel.NewsFeedViewModel
 import kotlinx.coroutines.launch
 
@@ -37,7 +36,9 @@ import kotlinx.coroutines.launch
  * Tela inicial da aplicação, com TopBar, BottomBar, HorizontalPager e um Drawer lateral.
  */
 @Composable
-fun HomeScreen(viewModel: NewsFeedViewModel) {
+fun HomeScreen() {
+    val viewModel: NewsFeedViewModel = hiltViewModel()
+
     // Estado da tab selecionada
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     val tabs = remember { mutableStateListOf("Feed", "Agronegócio") }

@@ -1,10 +1,12 @@
 package com.paulajustino.worldinfocusapp.data.mapper
 
-import com.paulajustino.worldinfocusapp.domain.model.NewsItemModel
 import com.paulajustino.worldinfocusapp.data.remote.api.ImageResponse
 import com.paulajustino.worldinfocusapp.data.remote.api.NewsItemResponse
+import com.paulajustino.worldinfocusapp.domain.model.NewsItemModel
+import javax.inject.Inject
 
-class NewsItemResponseToNewsItemModelMapperImpl : NewsItemResponseToNewsItemModelMapper {
+class NewsItemResponseToNewsItemModelMapperImpl @Inject constructor() :
+    NewsItemResponseToNewsItemModelMapper {
     override fun mapToNewsItemModel(from: NewsItemResponse): NewsItemModel {
         return NewsItemModel(
             id = from.id,
