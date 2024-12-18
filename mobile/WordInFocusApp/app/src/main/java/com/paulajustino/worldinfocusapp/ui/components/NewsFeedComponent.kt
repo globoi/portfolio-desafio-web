@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -27,22 +28,27 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.paulajustino.worldinfocusapp.R
+import com.paulajustino.worldinfocusapp.domain.model.NewsItem
 import com.paulajustino.worldinfocusapp.ui.buttons.ShareButton
 
 /**
- * Lista de cards de notícias.
+ * Lista genérica de notícias.
+ *
+ * @param newsItems Lista de notícias a ser exibida no feed.
+ * @param onNewsClick Callback ao clicar em um item de notícia.
  */
 @Composable
-fun FeedComponent() {
+fun GenericFeedComponent(
+    newsItems: List<NewsItem> = emptyList(),
+    onNewsClick: (String) -> Unit = {}
+) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(top = 12.dp, bottom = 12.dp, start = 12.dp, end = 12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        val items = listOf("Card 1", "Card 2", "Card 3", "Card 4")
-
-        items(items.size) { _ ->
-            NewsComponent()
+        items(newsItems) { newsItem ->
+            NewsComponent(newsItem)
         }
     }
 }
@@ -51,7 +57,9 @@ fun FeedComponent() {
  * Card que exibe informações de uma notícia.
  */
 @Composable
-fun NewsComponent() {
+fun NewsComponent(
+    newsItem: NewsItem
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth(),
@@ -61,7 +69,8 @@ fun NewsComponent() {
     ) {
         Column(modifier = Modifier
             .fillMaxWidth()
-            .clickable { }) {
+            .clickable { }
+        ) {
             Image(
                 painter = painterResource(id = R.mipmap.ic_world_in_focus_foreground),
                 contentDescription = "Imagem dentro do card",
@@ -74,15 +83,15 @@ fun NewsComponent() {
             Column(
                 modifier = Modifier.padding(12.dp)
             ) {
-                Text(text = "Meio Ambiente", style = MaterialTheme.typography.titleSmall)
+                newsItem.chapeu?.let { Text(text = it, style = MaterialTheme.typography.titleSmall) }
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Sede da COP30 em 2025, Pará é tomado por fumaça de queimadas",
+                    text = newsItem.title,
                     style = MaterialTheme.typography.titleLarge
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "descrição enormeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee aqui",
+                    text = newsItem.description,
                     maxLines = 3,
                     overflow = TextOverflow.Ellipsis
                 )
@@ -97,7 +106,7 @@ fun NewsComponent() {
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = "Há 2 minutos - Em Jornal Nacional",
+                        text = newsItem.metadata,
                         style = MaterialTheme.typography.bodyMedium,
                         color = Color.Black
                     )

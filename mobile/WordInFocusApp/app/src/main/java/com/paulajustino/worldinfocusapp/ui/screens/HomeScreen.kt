@@ -1,20 +1,18 @@
-package com.paulajustino.worldinfocusapp.ui
+package com.paulajustino.worldinfocusapp.ui.screens
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
@@ -23,17 +21,23 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.paulajustino.worldinfocusapp.domain.model.FeedState
+import com.paulajustino.worldinfocusapp.domain.model.NewsItem
 import com.paulajustino.worldinfocusapp.ui.components.BottomBarComponent
 import com.paulajustino.worldinfocusapp.ui.components.DrawerMenuComponent
-import com.paulajustino.worldinfocusapp.ui.components.FeedComponent
+import com.paulajustino.worldinfocusapp.ui.components.HorizontalPagerComponent
+import com.paulajustino.worldinfocusapp.ui.components.TabsComponent
 import com.paulajustino.worldinfocusapp.ui.components.TopBarComponent
+import com.paulajustino.worldinfocusapp.ui.theme.WorldInFocusAppTheme
+import com.paulajustino.worldinfocusapp.viewmodel.FeedViewModel
 import kotlinx.coroutines.launch
 
 /**
- * Tela principal da aplicação, com TopBar, BottomBar, HorizontalPager e um Drawer lateral.
+ * Tela inicial da aplicação, com TopBar, BottomBar, HorizontalPager e um Drawer lateral.
  */
 @Composable
-fun MainScreen() {
+fun HomeScreen(viewModel: FeedViewModel) {
     // Estado da tab selecionada
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     val tabs = remember { mutableStateListOf("Feed", "Agronegócio") }
@@ -43,6 +47,9 @@ fun MainScreen() {
     val drawerState = rememberDrawerState(DrawerValue.Closed)
 
     val scope = rememberCoroutineScope()
+
+    // Observa o estado do feed
+    val feedState = viewModel.feedState.collectAsState().value
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -78,7 +85,6 @@ fun MainScreen() {
                 },
                 content = { innerPadding ->
                     Column(modifier = Modifier.padding(innerPadding)) {
-
                         TabsComponent(
                             tabs = tabs,
                             selectedTabIndex = selectedTabIndex,
@@ -90,7 +96,12 @@ fun MainScreen() {
                             }
                         )
 
-                        HorizontalPagerComponent(pagerState)
+                        // Exibe o conteúdo dependendo do estado
+                        when (feedState) {
+                            is FeedState.Loading -> ShowLoadingIndicator()
+                            is FeedState.Success -> ShowNews(pagerState, feedState.news)
+                            is FeedState.Error -> ShowError(feedState.message)
+                        }
                     }
                 }
             )
@@ -103,54 +114,25 @@ fun MainScreen() {
     }
 }
 
-/**
- * Tabs de navegação do feed.
- *
- * @param tabs Lista de títulos das abas que serão exibidas.
- * @param selectedTabIndex Índice da aba atualmente selecionada.
- * @param onTabSelected Função callback que é chamada quando uma aba é selecionada,
- *                     passando o índice da aba selecionada.
- */
 @Composable
-fun TabsComponent(tabs: List<String>, selectedTabIndex: Int, onTabSelected: (Int) -> Unit) {
-    TabRow(
-        selectedTabIndex = selectedTabIndex,
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        tabs.forEachIndexed { index, tab ->
-            Tab(
-                selected = selectedTabIndex == index,
-                onClick = { onTabSelected(index) },
-                text = { Text(tab) }
-            )
-        }
-    }
+private fun ShowLoadingIndicator() {
+    CircularProgressIndicator(modifier = Modifier.padding(16.dp))
 }
 
-/**
- * HorizontalPager para exibição das abas do feed de forma deslizante.
- *
- * @param pagerState Estado do pager
- */
 @Composable
-fun HorizontalPagerComponent(pagerState: PagerState) {
-    Column {
-        HorizontalPager(
-            state = pagerState,
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
-        ) { pageIndex ->
-            when (pageIndex) {
-                0 -> FeedComponent()
-                1 -> FeedComponent()
-            }
-        }
-    }
+private fun ShowNews(pagerState: PagerState, news: List<NewsItem>) {
+    HorizontalPagerComponent(pagerState, news)
+}
+
+@Composable
+private fun ShowError(message: String) {
+    Text("Erro ao carregar feed: $message")
 }
 
 @Preview
 @Composable
-fun MainScreenPreview() {
-    MainScreen()
+fun HomeScreenPreview() {
+    WorldInFocusAppTheme {
+        HomeScreen(viewModel = FeedViewModel())
+    }
 }
