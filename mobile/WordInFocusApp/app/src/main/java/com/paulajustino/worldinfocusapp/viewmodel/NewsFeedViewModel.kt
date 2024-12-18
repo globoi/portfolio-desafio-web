@@ -4,7 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.paulajustino.worldinfocusapp.domain.model.FeedState
+import com.paulajustino.worldinfocusapp.domain.model.NewsState
 import com.paulajustino.worldinfocusapp.domain.model.NewsItem
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,11 +13,11 @@ import kotlinx.coroutines.launch
 /**
  * ViewModel responsável por gerenciar o estado da tela de feed de notícias.
  */
-class FeedViewModel : ViewModel() {
+class NewsFeedViewModel : ViewModel() {
 
     // Estado interno para controlar o feed
-    private val _feedState = MutableStateFlow<FeedState>(FeedState.Loading(false))
-    val feedState: StateFlow<FeedState> get() = _feedState
+    private val _newsState = MutableStateFlow<NewsState>(NewsState.Loading(false))
+    val newsState: StateFlow<NewsState> get() = _newsState
 
     // Estado interno para controlar as notícias carregadas
     private val _news = mutableStateOf<List<NewsItem>>(emptyList())
@@ -35,7 +35,7 @@ class FeedViewModel : ViewModel() {
      * @param isRefreshing Indica se é um refresh, nesse caso, os dados antigos devem ser limpados
      */
     private fun loadFeed(isRefreshing: Boolean) {
-        _feedState.value = FeedState.Loading(isRefreshing)
+        _newsState.value = NewsState.Loading(isRefreshing)
 
         viewModelScope.launch {
             try {
@@ -51,21 +51,21 @@ class FeedViewModel : ViewModel() {
                 val newNews = if (isRefreshing) filteredNews else _news.value + filteredNews
                 _news.value = newNews
 
-                _feedState.value = FeedState.Success(news = newNews)
+                _newsState.value = NewsState.Success(news = newNews)
 
                 // Incrementa a página para próxima requisição (caso não seja refresh)
                 if (!isRefreshing) currentPage++
 
             } catch (e: Exception) {
                 // Atualiza o estado para Error com a mensagem de erro
-                _feedState.value = FeedState.Error("Erro ao carregar o feed: ${e.message}")
+                _newsState.value = NewsState.Error("Erro ao carregar o feed: ${e.message}")
             }
         }
     }
 
-    private fun fetchFeed(page: Int): FeedResponse {
+    private fun fetchFeed(page: Int): NewsResponse {
         // Simulação de uma chamada para API
-        return FeedResponse(
+        return NewsResponse(
             items = List(10) { index ->
                 NewsItem(
                     id = index.toString(),
@@ -82,6 +82,6 @@ class FeedViewModel : ViewModel() {
 }
 
 // Modelo de resposta da API
-data class FeedResponse(
+data class NewsResponse(
     val items: List<NewsItem>
 )

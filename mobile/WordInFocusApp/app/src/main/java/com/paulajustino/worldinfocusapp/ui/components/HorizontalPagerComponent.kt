@@ -23,8 +23,8 @@ fun HorizontalPagerComponent(pagerState: PagerState, news: List<NewsItem>) {
                 .weight(1f)
         ) { pageIndex ->
             when (pageIndex) {
-                0 -> GenericFeedComponent(newsItems = news)
-                1 -> GenericFeedComponent(newsItems = news)
+                0 -> NewsFeedComponent(newsItems = news)
+                1 -> NewsFeedComponent(newsItems = news)
             }
         }
     }

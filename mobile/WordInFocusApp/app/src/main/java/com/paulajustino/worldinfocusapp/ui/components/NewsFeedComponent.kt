@@ -32,13 +32,13 @@ import com.paulajustino.worldinfocusapp.domain.model.NewsItem
 import com.paulajustino.worldinfocusapp.ui.buttons.ShareButton
 
 /**
- * Lista genérica de notícias.
+ * Lista de notícias.
  *
  * @param newsItems Lista de notícias a ser exibida no feed.
  * @param onNewsClick Callback ao clicar em um item de notícia.
  */
 @Composable
-fun GenericFeedComponent(
+fun NewsFeedComponent(
     newsItems: List<NewsItem> = emptyList(),
     onNewsClick: (String) -> Unit = {}
 ) {

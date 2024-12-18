@@ -8,11 +8,11 @@ import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.paulajustino.worldinfocusapp.ui.screens.HomeScreen
 import com.paulajustino.worldinfocusapp.ui.theme.WorldInFocusAppTheme
-import com.paulajustino.worldinfocusapp.viewmodel.FeedViewModel
+import com.paulajustino.worldinfocusapp.viewmodel.NewsFeedViewModel
 
 class MainActivity : ComponentActivity() {
 
-    private val feedViewModel: FeedViewModel by viewModels()
+    private val newsFeedViewModel: NewsFeedViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             WorldInFocusAppTheme {
-                HomeScreen(viewModel = feedViewModel)
+                HomeScreen(viewModel = newsFeedViewModel)
             }
         }
     }

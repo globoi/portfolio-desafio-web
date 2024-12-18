@@ -22,7 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.paulajustino.worldinfocusapp.domain.model.FeedState
+import com.paulajustino.worldinfocusapp.domain.model.NewsState
 import com.paulajustino.worldinfocusapp.domain.model.NewsItem
 import com.paulajustino.worldinfocusapp.ui.components.BottomBarComponent
 import com.paulajustino.worldinfocusapp.ui.components.DrawerMenuComponent
@@ -30,14 +30,14 @@ import com.paulajustino.worldinfocusapp.ui.components.HorizontalPagerComponent
 import com.paulajustino.worldinfocusapp.ui.components.TabsComponent
 import com.paulajustino.worldinfocusapp.ui.components.TopBarComponent
 import com.paulajustino.worldinfocusapp.ui.theme.WorldInFocusAppTheme
-import com.paulajustino.worldinfocusapp.viewmodel.FeedViewModel
+import com.paulajustino.worldinfocusapp.viewmodel.NewsFeedViewModel
 import kotlinx.coroutines.launch
 
 /**
  * Tela inicial da aplicação, com TopBar, BottomBar, HorizontalPager e um Drawer lateral.
  */
 @Composable
-fun HomeScreen(viewModel: FeedViewModel) {
+fun HomeScreen(viewModel: NewsFeedViewModel) {
     // Estado da tab selecionada
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     val tabs = remember { mutableStateListOf("Feed", "Agronegócio") }
@@ -49,7 +49,7 @@ fun HomeScreen(viewModel: FeedViewModel) {
     val scope = rememberCoroutineScope()
 
     // Observa o estado do feed
-    val feedState = viewModel.feedState.collectAsState().value
+    val feedState = viewModel.newsState.collectAsState().value
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -98,9 +98,9 @@ fun HomeScreen(viewModel: FeedViewModel) {
 
                         // Exibe o conteúdo dependendo do estado
                         when (feedState) {
-                            is FeedState.Loading -> ShowLoadingIndicator()
-                            is FeedState.Success -> ShowNews(pagerState, feedState.news)
-                            is FeedState.Error -> ShowError(feedState.message)
+                            is NewsState.Loading -> ShowLoadingIndicator()
+                            is NewsState.Success -> ShowNews(pagerState, feedState.news)
+                            is NewsState.Error -> ShowError(feedState.message)
                         }
                     }
                 }
@@ -133,6 +133,6 @@ private fun ShowError(message: String) {
 @Composable
 fun HomeScreenPreview() {
     WorldInFocusAppTheme {
-        HomeScreen(viewModel = FeedViewModel())
+        HomeScreen(viewModel = NewsFeedViewModel())
     }
 }
