@@ -6,11 +6,11 @@ plugins {
 
 android {
     namespace = "com.paulajustino.worldinfocusapp"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.paulajustino.worldinfocusapp"
-        minSdk = 23
+        minSdk = 21
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -56,4 +56,11 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Navigation
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.foundation.compose)
+
+    // SplashScreen
+    implementation(libs.androidx.splash.screen)
 }
