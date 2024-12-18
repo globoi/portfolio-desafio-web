@@ -12,3 +12,13 @@ Commit History:
 - Implementation of FeedViewModel:
   - Implementação da FeedViewModel com uma estrutura inicial abrangendo gerenciamento de estados do Feed.
   - Reestruturação do projeto, com a criação de novos componentes (foco em responsabilidade única), e também com a criação das demais camadas da arquitetura. Além disso, criei umas classes para as outras camadas, que ainda estão vazias, mas é para me ajudar a mapear o caminho que quero seguir. Ia colocar em outro commit mas acabei enviando tudo nesse.
+
+- Implement data layer with DataSource, Repository and Mappers:
+  - Adição de permissão para acesso à internet.
+  - Configuração da API e do Retrofit.
+  - Criação do escopo do LocalDataSource (Se sobrar tempo quero atuar neste ponto para salvar noticias em cache caso o usuário fique sem internet ou o app tenha acessado a API há pouco tempo.)
+  - Implementação de mappers para fazer o mapeamento de responses para models (uso nos dataSources).
+  - Implementação do RemoteDataSource, com modificações temporárias para testar o acesso à API e o mapeamento dos responses usando Moshi. Também foi definido um escopo para possíveis erros, com mensagens temporárias para serem melhor elaboradas posteriormente.
+  - Implementação do Repository (há um código comentado com acesso ao LocalDataSource que será aproveitado se sobrar tempo).
+  - Criação do escopo do UseCase (com a conversa que tivemos, quero utilizá-lo).
+  - Substituição de parâmetros a medida que as classes vão ficando mais definidas.
