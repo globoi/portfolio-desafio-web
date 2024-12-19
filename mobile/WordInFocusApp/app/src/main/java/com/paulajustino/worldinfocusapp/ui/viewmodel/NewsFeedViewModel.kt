@@ -4,9 +4,9 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.paulajustino.worldinfocusapp.data.repository.NewsRepository
-import com.paulajustino.worldinfocusapp.domain.model.NewsItemModel
-import com.paulajustino.worldinfocusapp.domain.model.NewsState
+import com.paulajustino.worldinfocusapp.data.repository.newsFeed.NewsRepository
+import com.paulajustino.worldinfocusapp.domain.model.newsFeed.NewsItemModel
+import com.paulajustino.worldinfocusapp.domain.model.newsFeed.NewsState
 import com.paulajustino.worldinfocusapp.utils.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -28,8 +28,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.paulajustino.worldinfocusapp.R
-import com.paulajustino.worldinfocusapp.domain.model.NewsItemModel
-import com.paulajustino.worldinfocusapp.ui.buttons.ShareButton
+import com.paulajustino.worldinfocusapp.domain.model.newsFeed.NewsItemModel
 
 /**
  * Lista de notícias.
@@ -110,7 +109,7 @@ fun NewsComponent(
                         style = MaterialTheme.typography.bodyMedium,
                         color = Color.Black
                     )
-                    ShareButton { }
+                    ShareButtonComponent { }
                 }
             }
         }

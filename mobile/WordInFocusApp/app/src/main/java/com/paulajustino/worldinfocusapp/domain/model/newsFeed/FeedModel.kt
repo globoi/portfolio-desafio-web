@@ -1,4 +1,4 @@
-package com.paulajustino.worldinfocusapp.domain.model
+package com.paulajustino.worldinfocusapp.domain.model.newsFeed
 
 data class FeedModel(
     val news: List<NewsItemModel>,

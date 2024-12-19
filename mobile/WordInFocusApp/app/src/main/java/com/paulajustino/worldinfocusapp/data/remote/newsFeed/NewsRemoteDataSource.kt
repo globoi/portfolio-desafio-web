@@ -1,6 +1,6 @@
-package com.paulajustino.worldinfocusapp.data.remote
+package com.paulajustino.worldinfocusapp.data.remote.newsFeed
 
-import com.paulajustino.worldinfocusapp.domain.model.FeedModel
+import com.paulajustino.worldinfocusapp.domain.model.newsFeed.FeedModel
 import com.paulajustino.worldinfocusapp.utils.NetworkError
 import com.paulajustino.worldinfocusapp.utils.Result
 

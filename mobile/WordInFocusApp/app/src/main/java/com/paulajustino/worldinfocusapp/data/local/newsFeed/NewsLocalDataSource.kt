@@ -1,6 +1,6 @@
-package com.paulajustino.worldinfocusapp.data.local
+package com.paulajustino.worldinfocusapp.data.local.newsFeed
 
-import com.paulajustino.worldinfocusapp.domain.model.FeedModel
+import com.paulajustino.worldinfocusapp.domain.model.newsFeed.FeedModel
 
 interface NewsLocalDataSource {
     suspend fun getCachedNewsFeed(): FeedModel?

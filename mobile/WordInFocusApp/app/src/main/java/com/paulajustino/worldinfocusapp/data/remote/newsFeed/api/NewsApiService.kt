@@ -1,5 +1,6 @@
-package com.paulajustino.worldinfocusapp.data.remote.api
+package com.paulajustino.worldinfocusapp.data.remote.newsFeed.api
 
+import com.paulajustino.worldinfocusapp.data.remote.newsFeed.FeedResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

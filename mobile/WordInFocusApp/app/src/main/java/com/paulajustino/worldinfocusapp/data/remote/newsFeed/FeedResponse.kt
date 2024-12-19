@@ -1,4 +1,4 @@
-package com.paulajustino.worldinfocusapp.data.remote.api
+package com.paulajustino.worldinfocusapp.data.remote.newsFeed
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

@@ -1,4 +1,4 @@
-package com.paulajustino.worldinfocusapp.ui.buttons
+package com.paulajustino.worldinfocusapp.ui.components
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
  * @param onClick Ação ao clicar no botão.
  */
 @Composable
-fun ShareButton(onClick: () -> Unit) {
+fun ShareButtonComponent(onClick: () -> Unit) {
     IconButton(
         onClick = onClick,
         modifier = Modifier

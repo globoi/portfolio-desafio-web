@@ -1,15 +1,23 @@
 package com.paulajustino.worldinfocusapp.di
 
-import com.paulajustino.worldinfocusapp.data.local.NewsLocalDataSource
-import com.paulajustino.worldinfocusapp.data.local.NewsLocalDataSourceImpl
-import com.paulajustino.worldinfocusapp.data.mapper.FeedResponseToFeedModelMapper
-import com.paulajustino.worldinfocusapp.data.mapper.FeedResponseToFeedModelMapperImpl
-import com.paulajustino.worldinfocusapp.data.mapper.NewsItemResponseToNewsItemModelMapper
-import com.paulajustino.worldinfocusapp.data.mapper.NewsItemResponseToNewsItemModelMapperImpl
-import com.paulajustino.worldinfocusapp.data.remote.NewsRemoteDataSource
-import com.paulajustino.worldinfocusapp.data.remote.NewsRemoteDataSourceImpl
-import com.paulajustino.worldinfocusapp.data.repository.NewsRepository
-import com.paulajustino.worldinfocusapp.data.repository.NewsRepositoryImpl
+import com.paulajustino.worldinfocusapp.data.local.menu.MenuLocalDataSource
+import com.paulajustino.worldinfocusapp.data.local.menu.MenuLocalDataSourceImpl
+import com.paulajustino.worldinfocusapp.data.local.newsFeed.NewsLocalDataSource
+import com.paulajustino.worldinfocusapp.data.local.newsFeed.NewsLocalDataSourceImpl
+import com.paulajustino.worldinfocusapp.data.mapper.menu.MenuItemResponseToMenuItemModelMapper
+import com.paulajustino.worldinfocusapp.data.mapper.menu.MenuItemResponseToMenuItemModelMapperImpl
+import com.paulajustino.worldinfocusapp.data.mapper.menu.MenuResponseToMenuModelMapper
+import com.paulajustino.worldinfocusapp.data.mapper.menu.MenuResponseToMenuModelMapperImpl
+import com.paulajustino.worldinfocusapp.data.mapper.newsFeed.FeedResponseToFeedModelMapper
+import com.paulajustino.worldinfocusapp.data.mapper.newsFeed.FeedResponseToFeedModelMapperImpl
+import com.paulajustino.worldinfocusapp.data.mapper.newsFeed.NewsItemResponseToNewsItemModelMapper
+import com.paulajustino.worldinfocusapp.data.mapper.newsFeed.NewsItemResponseToNewsItemModelMapperImpl
+import com.paulajustino.worldinfocusapp.data.remote.newsFeed.NewsRemoteDataSource
+import com.paulajustino.worldinfocusapp.data.remote.newsFeed.NewsRemoteDataSourceImpl
+import com.paulajustino.worldinfocusapp.data.repository.menu.MenuRepository
+import com.paulajustino.worldinfocusapp.data.repository.menu.MenuRepositoryImpl
+import com.paulajustino.worldinfocusapp.data.repository.newsFeed.NewsRepository
+import com.paulajustino.worldinfocusapp.data.repository.newsFeed.NewsRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -23,30 +31,54 @@ abstract class DataModule {
     @Binds
     @Singleton
     abstract fun bindNewsRemoteDataSource(
-        remoteDataSource: NewsRemoteDataSourceImpl
+        newsRemoteDataSource: NewsRemoteDataSourceImpl
     ): NewsRemoteDataSource
 
     @Binds
     @Singleton
     abstract fun bindNewsLocalDataSource(
-        localDataSource: NewsLocalDataSourceImpl
+        newsLocalDataSource: NewsLocalDataSourceImpl
     ): NewsLocalDataSource
 
     @Binds
     @Singleton
     abstract fun bindNewsRepository(
-        repositoryImpl: NewsRepositoryImpl
+        newsRepository: NewsRepositoryImpl
     ): NewsRepository
 
     @Binds
     @Singleton
     abstract fun bindFeedResponseToFeedModelMapper(
-        mapperImpl: FeedResponseToFeedModelMapperImpl
+        feedMapper: FeedResponseToFeedModelMapperImpl
     ): FeedResponseToFeedModelMapper
 
     @Binds
     @Singleton
     abstract fun bindNewsItemResponseToNewsItemModelMapper(
-        mapperImpl: NewsItemResponseToNewsItemModelMapperImpl
+        newsItemMapper: NewsItemResponseToNewsItemModelMapperImpl
     ): NewsItemResponseToNewsItemModelMapper
+
+    @Binds
+    @Singleton
+    abstract fun bindMenuLocalDataSource(
+        menuLocalDataSource: MenuLocalDataSourceImpl
+    ): MenuLocalDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindMenuRepository(
+        menuRepository: MenuRepositoryImpl
+    ): MenuRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindMenuResponseToMenuModelMapper(
+        menuMapper: MenuResponseToMenuModelMapperImpl
+    ): MenuResponseToMenuModelMapper
+
+    @Binds
+    @Singleton
+    abstract fun bindMenuItemResponseToMenuItemModelMapper(
+        menuItemMapper: MenuItemResponseToMenuItemModelMapperImpl
+    ): MenuItemResponseToMenuItemModelMapper
 }

@@ -1,8 +1,8 @@
-package com.paulajustino.worldinfocusapp.data.remote
+package com.paulajustino.worldinfocusapp.data.remote.newsFeed
 
-import com.paulajustino.worldinfocusapp.data.mapper.FeedResponseToFeedModelMapper
-import com.paulajustino.worldinfocusapp.data.remote.api.NewsApiService
-import com.paulajustino.worldinfocusapp.domain.model.FeedModel
+import com.paulajustino.worldinfocusapp.data.mapper.newsFeed.FeedResponseToFeedModelMapper
+import com.paulajustino.worldinfocusapp.data.remote.newsFeed.api.NewsApiService
+import com.paulajustino.worldinfocusapp.domain.model.newsFeed.FeedModel
 import com.paulajustino.worldinfocusapp.utils.NetworkError
 import com.paulajustino.worldinfocusapp.utils.Result
 import javax.inject.Inject

@@ -1,8 +1,8 @@
-package com.paulajustino.worldinfocusapp.data.mapper
+package com.paulajustino.worldinfocusapp.data.mapper.newsFeed
 
-import com.paulajustino.worldinfocusapp.data.remote.api.ImageResponse
-import com.paulajustino.worldinfocusapp.data.remote.api.NewsItemResponse
-import com.paulajustino.worldinfocusapp.domain.model.NewsItemModel
+import com.paulajustino.worldinfocusapp.data.remote.newsFeed.ImageResponse
+import com.paulajustino.worldinfocusapp.data.remote.newsFeed.NewsItemResponse
+import com.paulajustino.worldinfocusapp.domain.model.newsFeed.NewsItemModel
 import javax.inject.Inject
 
 class NewsItemResponseToNewsItemModelMapperImpl @Inject constructor() :

@@ -1,6 +1,6 @@
 package com.paulajustino.worldinfocusapp.di
 
-import com.paulajustino.worldinfocusapp.data.remote.api.NewsApiService
+import com.paulajustino.worldinfocusapp.data.remote.newsFeed.api.NewsApiService
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides

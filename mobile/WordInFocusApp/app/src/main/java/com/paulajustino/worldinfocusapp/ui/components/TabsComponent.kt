@@ -16,7 +16,11 @@ import androidx.compose.ui.Modifier
  *                     passando o índice da aba selecionada.
  */
 @Composable
-fun TabsComponent(tabs: List<String>, selectedTabIndex: Int, onTabSelected: (Int) -> Unit) {
+fun TabsComponent(
+    tabs: List<String>,
+    selectedTabIndex: Int,
+    onTabSelected: (Int) -> Unit
+) {
     TabRow(
         selectedTabIndex = selectedTabIndex,
         modifier = Modifier.fillMaxWidth()

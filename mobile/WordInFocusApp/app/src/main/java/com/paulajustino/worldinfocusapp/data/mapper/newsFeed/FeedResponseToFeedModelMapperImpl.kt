@@ -1,7 +1,7 @@
-package com.paulajustino.worldinfocusapp.data.mapper
+package com.paulajustino.worldinfocusapp.data.mapper.newsFeed
 
-import com.paulajustino.worldinfocusapp.domain.model.FeedModel
-import com.paulajustino.worldinfocusapp.data.remote.api.FeedResponse
+import com.paulajustino.worldinfocusapp.domain.model.newsFeed.FeedModel
+import com.paulajustino.worldinfocusapp.data.remote.newsFeed.FeedResponse
 import javax.inject.Inject
 
 class FeedResponseToFeedModelMapperImpl @Inject constructor(
