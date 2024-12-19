@@ -27,3 +27,9 @@ Commit History:
   - Implementação de Injeção de Dependência no projeto.
   - Decisão no uso do Hilt. Já trabalhei com Dagger e Hilt, mas o Hilt é mais simples, tem integração com Android e reduz boilerplate.
   - Uso de kapt ao invés de ksp: Estava usando ksp no projeto, mas ao usar com o Hilt tive alguns problemas de execução, e por falta de tempo para debuggar, mudei pro kapt que era mais certo que funcionaria.
+ 
+- Implement menu flow:
+  - Implementação da última tab com um menu, com os itens passados por um json estático. Fluxo completo: desde o dataSource que busca e mapeia as informações do json, passando por um repository, viewModel e chegando à UI.
+  - Implementação da webview que exibe o conteúdo relacionado ao item do menu clicado.
+  - Implementação do mesmo menu no bottomBar. Essa tinha sido minha ideia inicial, depois entendi que o menu era para estar numa tab, mas decidi manter ambos.
+  - Atualização do projeto para manter todas as modificações em conformidade com o padrão de arquitetura escolhido.
