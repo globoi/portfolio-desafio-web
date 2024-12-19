@@ -22,3 +22,8 @@ Commit History:
   - Implementação do Repository (há um código comentado com acesso ao LocalDataSource que será aproveitado se sobrar tempo).
   - Criação do escopo do UseCase (com a conversa que tivemos, quero utilizá-lo).
   - Substituição de parâmetros a medida que as classes vão ficando mais definidas.
+ 
+- Implement Dependency Injection for the App:
+  - Implementação de Injeção de Dependência no projeto.
+  - Decisão no uso do Hilt. Já trabalhei com Dagger e Hilt, mas o Hilt é mais simples, tem integração com Android e reduz boilerplate.
+  - Uso de kapt ao invés de ksp: Estava usando ksp no projeto, mas ao usar com o Hilt tive alguns problemas de execução, e por falta de tempo para debuggar, mudei pro kapt que era mais certo que funcionaria.
