@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.WorldInFocusApp" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.SplashScreen.WorldInFocusSplash" parent="Theme.SplashScreen.IconBackground">
+        <item name="windowSplashScreenBackground">@android:color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_world_in_focus</item>
+        <item name="postSplashScreenTheme">@style/Theme.WorldInFocusApp</item>
+    </style>
+</resources>
