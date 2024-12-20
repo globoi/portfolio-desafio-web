@@ -2,8 +2,6 @@ package com.paulajustino.worldinfocusapp.di
 
 import com.paulajustino.worldinfocusapp.data.local.menu.MenuLocalDataSource
 import com.paulajustino.worldinfocusapp.data.local.menu.MenuLocalDataSourceImpl
-import com.paulajustino.worldinfocusapp.data.local.newsFeed.NewsLocalDataSource
-import com.paulajustino.worldinfocusapp.data.local.newsFeed.NewsLocalDataSourceImpl
 import com.paulajustino.worldinfocusapp.data.mapper.menu.MenuItemResponseToMenuItemModelMapper
 import com.paulajustino.worldinfocusapp.data.mapper.menu.MenuItemResponseToMenuItemModelMapperImpl
 import com.paulajustino.worldinfocusapp.data.mapper.menu.MenuResponseToMenuModelMapper
@@ -16,8 +14,8 @@ import com.paulajustino.worldinfocusapp.data.remote.newsFeed.NewsRemoteDataSourc
 import com.paulajustino.worldinfocusapp.data.remote.newsFeed.NewsRemoteDataSourceImpl
 import com.paulajustino.worldinfocusapp.data.repository.menu.MenuRepository
 import com.paulajustino.worldinfocusapp.data.repository.menu.MenuRepositoryImpl
-import com.paulajustino.worldinfocusapp.data.repository.newsFeed.NewsRepository
-import com.paulajustino.worldinfocusapp.data.repository.newsFeed.NewsRepositoryImpl
+import com.paulajustino.worldinfocusapp.data.repository.newsFeed.NewsFeedRepository
+import com.paulajustino.worldinfocusapp.data.repository.newsFeed.NewsFeedRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -36,15 +34,9 @@ abstract class DataModule {
 
     @Binds
     @Singleton
-    abstract fun bindNewsLocalDataSource(
-        newsLocalDataSource: NewsLocalDataSourceImpl
-    ): NewsLocalDataSource
-
-    @Binds
-    @Singleton
-    abstract fun bindNewsRepository(
-        newsRepository: NewsRepositoryImpl
-    ): NewsRepository
+    abstract fun bindNewsFeedRepository(
+        newsFeedRepository: NewsFeedRepositoryImpl
+    ): NewsFeedRepository
 
     @Binds
     @Singleton

@@ -11,13 +11,12 @@ class NewsItemResponseToNewsItemModelMapperImpl @Inject constructor() :
         return NewsItemModel(
             id = from.id,
             type = from.type,
-            chapeu = from.content?.chapeu?.label.orEmpty(),
-            title = from.content?.title.orEmpty(),
+            subSection = from.content?.subSection?.label,
+            title = from.content?.title,
             summary = from.content?.summary,
             imageUrl = getImageUrl(from.content?.image),
-            section = from.content?.section,
-            metaData = from.metadata.orEmpty(),
-            url = from.content?.url.orEmpty()
+            metaData = from.metadata,
+            url = from.content?.url
         )
     }
 

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">WorldInFocusApp</string>
+    <string name="menu_tab_content_description">Abrir menu de navegação</string>
+    <string name="home_tab_content_description">Navegar para a página inicial</string>
+    <string name="image_news_content_description">Imagem da notícia: %1$s</string>
+    <string name="back_button_content_description">Voltar para a tela anterior</string>
 </resources>

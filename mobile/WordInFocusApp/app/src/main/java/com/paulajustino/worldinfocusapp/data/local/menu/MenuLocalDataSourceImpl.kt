@@ -13,28 +13,27 @@ import javax.inject.Inject
 class MenuLocalDataSourceImpl @Inject constructor(
     @ApplicationContext private val context: Context
 ) : MenuLocalDataSource {
+
+    val moshi: Moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+
     override fun getMenuItems(): List<MenuItemModel> {
         return try {
-            // Lê o arquivo JSON da pasta assets
-            val inputStream = context.assets.open("Menu.json")
-            val jsonString = inputStream.bufferedReader().use { it.readText() }
+            // use() garante o fechamento do InputStream após a leitura
+            context.assets.open(MENU_FILE_NAME).bufferedReader().use { reader ->
+                val jsonString = reader.readText()
 
-            // Cria o Moshi e configura o adaptador KotlinJsonAdapterFactory
-            val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-            val jsonAdapter: JsonAdapter<MenuResponse> = moshi.adapter(MenuResponse::class.java)
+                // Parse do JSON para o objeto MenuResponse
+                val jsonAdapter: JsonAdapter<MenuResponse> = moshi.adapter(MenuResponse::class.java)
+                val menuResponse = jsonAdapter.fromJson(jsonString)
 
-            // Faz o parse do JSON para o objeto MenuResponse
-            val menuResponse = jsonAdapter.fromJson(jsonString)
-
-            // Retorna a lista de MenuItems, se presente
-            menuResponse?.menuItems?.let {
-                it.map { menuItemResponse ->
+                // Retorna a lista de MenuItems ou uma lista vazia se o objeto for nulo
+                menuResponse?.menuItems?.map { menuItemResponse ->
                     MenuItemModel(
                         title = menuItemResponse.title,
                         url = menuItemResponse.url
                     )
-                }
-            } ?: emptyList()
+                } ?: emptyList()
+            }
         } catch (e: FileNotFoundException) {
             Log.e("FileError", "Arquivo Menu.json não encontrado: ${e.message}")
             emptyList()
@@ -42,5 +41,9 @@ class MenuLocalDataSourceImpl @Inject constructor(
             Log.e("FileError", "Erro ao carregar arquivo Menu.json: ${e.message}")
             emptyList()
         }
+    }
+
+    companion object {
+        private const val MENU_FILE_NAME = "Menu.json"
     }
 }

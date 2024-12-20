@@ -4,13 +4,13 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class FeedResponse(
-    @Json(name = "feed") val feed: FeedDetailsResponse
+data class NewsFeedResponse(
+    @Json(name = "feed") val feed: NewsFeedDetailsResponse
 )
 
 @JsonClass(generateAdapter = true)
-data class FeedDetailsResponse(
-    @Json(name = "oferta") val oferta: String,
+data class NewsFeedDetailsResponse(
+    @Json(name = "oferta") val oferta: String?,
     @Json(name = "falkor") val falkor: FalkorResponse
 )
 
@@ -25,12 +25,12 @@ data class NewsItemResponse(
     @Json(name = "id") val id: String,
     @Json(name = "type") val type: String,
     @Json(name = "metadata") val metadata: String?,
-    @Json(name = "content") val content: NewsContentResponse?
+    @Json(name = "content") val content: NewsItemContentResponse?
 )
 
 @JsonClass(generateAdapter = true)
-data class NewsContentResponse(
-    @Json(name = "chapeu") val chapeu: ChapeuResponse?,
+data class NewsItemContentResponse(
+    @Json(name = "chapeu") val subSection: SubSectionResponse?,
     @Json(name = "title") val title: String?,
     @Json(name = "summary") val summary: String?,
     @Json(name = "section") val section: String?,
@@ -39,7 +39,7 @@ data class NewsContentResponse(
 )
 
 @JsonClass(generateAdapter = true)
-data class ChapeuResponse(
+data class SubSectionResponse(
     @Json(name = "label") val label: String?
 )
 

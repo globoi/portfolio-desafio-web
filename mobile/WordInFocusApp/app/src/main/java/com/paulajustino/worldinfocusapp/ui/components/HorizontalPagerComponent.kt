@@ -1,43 +1,33 @@
 package com.paulajustino.worldinfocusapp.ui.components
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.paulajustino.worldinfocusapp.domain.model.menu.MenuItemModel
-import com.paulajustino.worldinfocusapp.domain.model.newsFeed.NewsItemModel
+import com.paulajustino.worldinfocusapp.ui.model.NewsItemUiModel
 
 /**
  * HorizontalPager para exibição das abas do feed de forma deslizante.
  *
- * @param pagerState Estado do pager
+ *
+ * @param pagerState Estado atual do Pager para controlar o estado e navegação entre as páginas.
+ * @param newsType Tipo de notícias a ser exibido.
+ * @param menuItems Lista de itens de menu.
+ * @param onMenuItemClick Função chamada quando um item de menu é clicado.
+ * @param onNewsItemClick Função chamada quando uma notícia é clicada.
  */
 @Composable
 fun HorizontalPagerComponent(
     pagerState: PagerState,
-    news: List<NewsItemModel>,
-    selectedTabIndex: Int,
-    onMenuItemSelected: (MenuItemModel) -> Unit,
-    menuItems: List<MenuItemModel>
+    newsType: String,
+    menuItems: List<MenuItemModel>,
+    onMenuItemClick: (MenuItemModel) -> Unit,
+    onNewsItemClick: (NewsItemUiModel) -> Unit
 ) {
     Column {
-        if (selectedTabIndex == 2) {
-            MenuTabComponent(
-                menuItems = menuItems,
-                onItemClick = { menuItem ->
-                    onMenuItemSelected(menuItem)
-                }
-            )
-        }
-
         HorizontalPager(
             state = pagerState,
             modifier = Modifier
@@ -45,28 +35,46 @@ fun HorizontalPagerComponent(
                 .weight(1f)
         ) { pageIndex ->
             when (pageIndex) {
-                0 -> NewsFeedComponent(newsItems = news)
-                1 -> NewsFeedComponent(newsItems = news)
+                // Exibe o Feed de Notícias
+                0, 1 -> NewsFeedComponent(
+                    newsType = newsType,
+                    onNewsItemClick = onNewsItemClick
+                )
+                // Exibe o Menu
+                2 -> MenuTabComponent(menuItems = menuItems, onMenuItemClick = onMenuItemClick)
             }
         }
     }
 }
 
+/*
 @Composable
-fun MenuTabComponent(menuItems: List<MenuItemModel>, onItemClick: (MenuItemModel) -> Unit) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        menuItems.forEach { item ->
-            Text(
-                text = item.title,
-                modifier = Modifier
-                    .clickable { onItemClick(item) }
-                    .padding(vertical = 8.dp)
-                    .align(Alignment.CenterHorizontally)
-            )
+fun PagedHorizontalPagerComponent(
+    pagerState: PagerState,
+    newsFlow: Map<String, StateFlow<PagingData<NewsItemModel>>>
+) {
+    Column {
+        HorizontalPager(
+            state = pagerState,
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+        ) { pageIndex ->
+            when (pageIndex) {
+                0 -> {
+                    val newsItems = newsFlow[NewsType.RECENTS.type]?.collectAsLazyPagingItems()
+                    newsItems?.let {
+                        NewsFeedPagedComponent(it)
+                    }
+                }
+                1 -> {
+                    val newsItems = newsFlow[NewsType.AGRO.type]?.collectAsLazyPagingItems()
+                    newsItems?.let {
+                        NewsFeedPagedComponent(it)
+                    }
+                }
+
+            }
         }
     }
-}
+}*/

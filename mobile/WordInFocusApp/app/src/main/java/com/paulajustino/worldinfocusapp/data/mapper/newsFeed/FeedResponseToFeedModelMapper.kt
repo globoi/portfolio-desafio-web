@@ -1,8 +1,8 @@
 package com.paulajustino.worldinfocusapp.data.mapper.newsFeed
 
 import com.paulajustino.worldinfocusapp.domain.model.newsFeed.FeedModel
-import com.paulajustino.worldinfocusapp.data.remote.newsFeed.FeedResponse
+import com.paulajustino.worldinfocusapp.data.remote.newsFeed.NewsFeedResponse
 
 interface FeedResponseToFeedModelMapper {
-    fun mapToFeedModel(from: FeedResponse): FeedModel
+    fun mapToFeedModel(from: NewsFeedResponse): FeedModel
 }

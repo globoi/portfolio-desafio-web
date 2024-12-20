@@ -13,14 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 
 @Composable
-fun MenuItemWebViewScreen(url: String, onBackPressed: () -> Unit) {
+fun GenericWebViewScreen(url: String, onBackPressed: () -> Unit) {
     AndroidView(
         factory = { context ->
             WebView(context).apply {
                 settings.apply {
                     settings.javaScriptEnabled = true
                     settings.domStorageEnabled = true
-                    cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK // Usa cache para acelerar carregamento
+                    cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK // Uso de cache para acelerar carregamento
                 }
                 loadUrl(url)
             }
