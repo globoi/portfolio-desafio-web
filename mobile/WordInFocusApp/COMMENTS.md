@@ -1,4 +1,4 @@
-Commit History: 
+Histórico de Commits:
 
 - Initial implementation of the home/main screen:
     - Decisão no uso de Jetpack Compose, tanto por afinidade quanto tendências e recomendações do Google. Apesar de ter uma curva de aprendizado inicial mais alta, o Compose é bem mais intuitivo, flexivel, reutilizável, reativo e tem um desempenho muito por conta das atualizações e otimizações automaticas que ele oferece.
@@ -33,3 +33,29 @@ Commit History:
   - Implementação da webview que exibe o conteúdo relacionado ao item do menu clicado.
   - Implementação do mesmo menu no bottomBar. Essa tinha sido minha ideia inicial, depois entendi que o menu era para estar numa tab, mas decidi manter ambos.
   - Atualização do projeto para manter todas as modificações em conformidade com o padrão de arquitetura escolhido.
+ 
+- Implement pullToRefresh, webView and others: *esse commit ficou gigantesco pois fiquei preocupada com o prazo*
+  - Implementação do GetInitialNewsFeed.
+  - Remoção de LocalDataSource.
+  - Refatoração e reestruturação do projeto para seguir de acordo com a arquitetura escolhida e aos principios de SOLID, Clean Code e Clean Architecture.
+  - Criação e atualização de módulos usados pelo Hilt.
+  - Revisão de Composables.
+  - Criação de UiModel, modelo para a camada de ui.
+  - Criação de mappers para mapear um modelo de uma camada para outro modelo de outra. Tudo isso foi pensando nos principios adotados.
+ 
+
+Comentários gerais:
+  - Eu mantive trechos comentados em: NewsRemoteDataSource , NewsRemoteDataSourceImpl, NewsApiService, NewsRepository, NewsFeedRepositoryImpl, HorizontalPagerComponent, NewsFeedComponent, HomeScreen, NewsFeedViewModel. Sei que essa abordagem está longe de ser a ideal, mas eu não consegui terminar de implementar a parte de paginação, estavam com alguns bugs e fiquei umas sete horas trabalhando nisso, infelizmente tive que abandonar para conseguir concluir outras coisas que ainda estavam pendentes, mas eu gostaria muito que olhassem um pouco do que fiz.
+  - Queria ter tido tempo para implementar outras coisas e ideias como:
+    - Escolher qual o tamanho da imagem da noticia a ser mostrada, levando em consideração a conexão à internet e ao nivel da bateria do usuário.
+    - Cache de notícias caso o usuário estivesse sem internet ou se tentasse acessar o feed há poucos minutos da ultima vez. Usaria o Room para a memória e classes como ConnectivityManager para verificar o acesso à internet.
+    - Explorar e padronizar mais o tratamento de erros. E criar outros tipos para além do NetworkError, acabei usando ele para tudo, além do contexto para qual ele foi criado.
+    - Centralizar às strings no resource (strings.xml) e em constantes.
+    - Criar mais contentDescriptions (gosto muito da temática de acessibilidade).
+    - Implementar o NavigationGraph com o compose, só fiz com o XML. O código da navegação teria ficado menos complexa.
+    - Implementar testes. Tanto os unitários quanto os de UI.
+    - Ter separado melhor meus commits.
+
+Gostaria de agradecer pela oportunidade. Fiquei bastante empolgada com o desafio. Infelizmente não consegui dedicar tanto tempo quanto gostaria, por outras questões acontecendo no mesmo período, para entregar um projeto que refletisse melhor o meu trabalho, mas espero que eu tenha mostrado o suficiente.
+
+
