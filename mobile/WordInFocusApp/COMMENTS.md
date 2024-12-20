@@ -47,6 +47,7 @@ Histórico de Commits:
 Comentários gerais:
   - Eu mantive trechos comentados em: NewsRemoteDataSource , NewsRemoteDataSourceImpl, NewsApiService, NewsRepository, NewsFeedRepositoryImpl, HorizontalPagerComponent, NewsFeedComponent, HomeScreen, NewsFeedViewModel. Sei que essa abordagem está longe de ser a ideal, mas eu não consegui terminar de implementar a parte de paginação, estavam com alguns bugs e fiquei umas sete horas trabalhando nisso, infelizmente tive que abandonar para conseguir concluir outras coisas que ainda estavam pendentes, mas eu gostaria muito que olhassem um pouco do que fiz.
   - Queria ter tido tempo para implementar outras coisas e ideias como:
+    - Criar um readme para apresentar melhor o meu app. 
     - Escolher qual o tamanho da imagem da noticia a ser mostrada, levando em consideração a conexão à internet e ao nivel da bateria do usuário.
     - Cache de notícias caso o usuário estivesse sem internet ou se tentasse acessar o feed há poucos minutos da ultima vez. Usaria o Room para a memória e classes como ConnectivityManager para verificar o acesso à internet.
     - Explorar e padronizar mais o tratamento de erros. E criar outros tipos para além do NetworkError, acabei usando ele para tudo, além do contexto para qual ele foi criado.
